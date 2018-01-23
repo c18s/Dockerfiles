@@ -1,0 +1,9 @@
+dante:
+  image: c18s/dante
+  ports:
+    - '1080:1080'
+  volumes:
+    - './sockd.conf:/etc/sockd.conf'
+  environment:
+    - WORKERS=4
+  restart: always
