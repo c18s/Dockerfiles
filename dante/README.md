@@ -1,11 +1,16 @@
 Dante - A free SOCKS server
 ===========================
-![Dante](logo.png?raw=true "Dante Logo")
+![Dante](https://raw.githubusercontent.com/c18s/Dockerfiles/master/dante/logo.png "Dante Logo")
 
 [Dante][1] is a product developed by Inferno Nettverk A/S. It consists of a
 SOCKS server and a SOCKS client, implementing RFC 1928 and related standards.
 It is a flexible product that can be used to provide convenient and secure
 network connectivity. 
+
+[![Docker Build Status](https://img.shields.io/docker/build/c18s/dante.svg)][dockerhub_build]
+[![Docker Automated build](https://img.shields.io/docker/automated/c18s/dante.svg)][dockerhub]
+[![Docker Pulls](https://img.shields.io/docker/pulls/c18s/dante.svg)][dockerhub]
+[![ImageLayers Size](https://images.microbadger.com/badges/image/c18s/dante.svg)][dockerhub_tag]
 
 ## Usage
 
@@ -30,3 +35,6 @@ dante:
 ```
 
 [1]: http://www.inet.no/dante/index.html
+[dockerhub]: https://hub.docker.com/r/c18s/dante/
+[dockerhub_tag]: https://hub.docker.com/r/c18s/dante/tags/
+[dockerhub_build]: https://hub.docker.com/r/c18s/dante/builds/
