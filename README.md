@@ -1,6 +1,6 @@
 # Dockerfiles 
 
-![Dockerfiles](https://raw.githubusercontent.com/c18s/Dockerfiles/master/logo.png "Dockerfiles Logo")
+![Dockerfiles](logo.png "Dockerfiles Logo")
 
 Collection of Dockerfiles
 
