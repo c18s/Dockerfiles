@@ -1,0 +1,24 @@
+#!/bin/sh
+## --- packages ---
+apk add --no-cache \
+  ppp \
+  strongswan \
+  xl2tpd \
+  iptables \
+  openssl \
+  util-linux \
+  lighttpd \
+  supervisor \
+  bind-tools
+
+## --- clear ---
+rm -rf /var/log/* /var/cache/apk/*
+
+## --- links ---
+ln -sfv /etc/ipsec.d/ipsec.conf /etc/ipsec.conf
+ln -sfv /etc/ipsec.d/ipsec.secrets /etc/ipsec.secrets
+
+## --- remove self ---
+rm -- "$0"
+
+## EOF

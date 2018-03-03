@@ -1,0 +1,9 @@
+ipsec:
+  image: c18s/ipsec
+  privileged: yes
+  ports:
+    - '0.0.0.0:500:500/udp'
+    - '0.0.0.0:4500:4500/udp'
+  volumes:
+    - '/lib/modules:/lib/modules'
+  restart: always
