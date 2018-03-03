@@ -13,6 +13,7 @@ Docker can build images automatically by reading the instructions from a Dockerf
 ## Successful images
 
 - [x] [dante](dante)
+- [x] [ipsec](ipsec)
 
 ## Todo
 
