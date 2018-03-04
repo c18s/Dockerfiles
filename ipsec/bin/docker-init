@@ -15,8 +15,8 @@ apk add --no-cache \
 rm -rf /var/log/* /var/cache/apk/*
 
 ## --- links ---
-ln -sfv /etc/ipsec.d/ipsec.conf /etc/ipsec.conf
-ln -sfv /etc/ipsec.d/ipsec.secrets /etc/ipsec.secrets
+ln -sfv /etc/ipsec.conf /etc/ipsec.d/ipsec.conf
+ln -sfv /etc/ipsec.secrets /etc/ipsec.d/ipsec.secrets
 
 ## --- remove self ---
 rm -- "$0"

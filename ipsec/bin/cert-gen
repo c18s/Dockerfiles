@@ -1,0 +1,58 @@
+#!/bin/sh
+## --- path ---
+IPSEC_PATH=/etc/ipsec.d
+CERTS_CONFIG_PATH=${IPSEC_PATH}/config/certs
+CA_KEY_FILE=${IPSEC_PATH}/private/ca.key
+CA_CERT_FILE=${IPSEC_PATH}/cacerts/ca.crt
+SERVER_KEY_FILE=${IPSEC_PATH}/private/server.key
+SERVER_CERT_FILE=${IPSEC_PATH}/certs/server.crt
+
+## --- check certificate ---
+mkdir -p ${CERTS_CONFIG_PATH}
+if [ -f ${CERTS_CONFIG_PATH}/ca.crt ] &&
+  [ -f ${CERTS_CONFIG_PATH}/server.key ] &&
+  [ -f ${CERTS_CONFIG_PATH}/server.crt ]; then
+  cp -rf ${CERTS_CONFIG_PATH}/ca.crt ${CA_CERT_FILE}
+  cp -rf ${CERTS_CONFIG_PATH}/server.key ${SERVER_KEY_FILE}
+  cp -rf ${CERTS_CONFIG_PATH}/server.crt ${SERVER_CERT_FILE}
+  echo "Your certificate is ready."
+  exit 0
+fi
+
+## --- Certificate generator ---
+echo "Self-signed ssl certificates."
+
+## --- environment config ---
+DOMAIN=${DOMAIN:-localhost}
+WILDCARD="*.${DOMAIN}"
+COUNTRY_CODE=${COUNTRY_CODE:-TH}
+ORGANIZATION=${ORGANIZATION:-C18S}
+LIFETIME=${LIFETIME:-3650}
+
+## --- generate ca key ---
+[ ! -f ${CA_KEY_FILE} ] &&
+  ipsec pki --gen --outform pem >${CA_KEY_FILE}
+
+## --- generate ca cert ---
+[ ! -f ${CA_CERT_FILE} ] &&
+  ipsec pki --self --ca \
+    --lifetime ${LIFETIME} \
+    --in ${CA_KEY_FILE} \
+    --dn "C=${COUNTRY_CODE}, O=${ORGANIZATION}, CN=${ORGANIZATION} Root CA" \
+    --outform pem >${CA_CERT_FILE}
+
+## --- generate server key ---
+[ ! -f ${SERVER_KEY_FILE} ] &&
+  ipsec pki --gen --outform pem >${SERVER_KEY_FILE}
+
+## --- generate server cert ---
+[ ! -f ${SERVER_CERT_FILE} ] &&
+  ipsec pki --pub --in ${SERVER_KEY_FILE} |
+  ipsec pki --issue --lifetime ${LIFETIME} \
+    --cakey ${CA_KEY_FILE} \
+    --cacert ${CA_CERT_FILE} \
+    --dn "C=${COUNTRY_CODE}, O=${ORGANIZATION}, CN=${WILDCARD}" \
+    --san="${WILDCARD}" --san="${DOMAIN}" --flag serverAuth --flag ikeIntermediate \
+    --outform pem >${SERVER_CERT_FILE}
+
+## EOF
