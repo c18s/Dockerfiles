@@ -23,8 +23,7 @@ fi
 echo "Self-signed ssl certificates."
 
 ## --- environment config ---
-DOMAIN=${DOMAIN:-localhost}
-WILDCARD="*.${DOMAIN}"
+SERVER=${SERVER:-localhost}
 COUNTRY_CODE=${COUNTRY_CODE:-TH}
 ORGANIZATION=${ORGANIZATION:-C18S}
 LIFETIME=${LIFETIME:-3650}
@@ -51,8 +50,8 @@ LIFETIME=${LIFETIME:-3650}
   ipsec pki --issue --lifetime ${LIFETIME} \
     --cakey ${CA_KEY_FILE} \
     --cacert ${CA_CERT_FILE} \
-    --dn "C=${COUNTRY_CODE}, O=${ORGANIZATION}, CN=${WILDCARD}" \
-    --san="${WILDCARD}" --san="${DOMAIN}" --flag serverAuth --flag ikeIntermediate \
+    --dn "C=${COUNTRY_CODE}, O=${ORGANIZATION}, CN=${SERVER}" \
+    --san="${SERVER}" --flag serverAuth --flag ikeIntermediate \
     --outform pem >${SERVER_CERT_FILE}
 
 ## EOF
