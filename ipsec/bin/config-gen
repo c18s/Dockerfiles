@@ -33,7 +33,7 @@ echo "DNS_SERVER2: ${DNS_SERVER2}"
 IPSEC_SECRETS=$(
   cat <<EOL
 ## --- keys ---
-: RSA server.crt
+: RSA server.key
 : PSK "${PSK}"
 \n
 EOL
