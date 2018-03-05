@@ -1,0 +1,97 @@
+#!/bin/sh
+## --- path ---
+IPSEC_PATH=/etc/ipsec.d
+TEMPLATE_PATH=${IPSEC_PATH}/config/template
+SERVER_CERT_FILE=${IPSEC_PATH}/certs/server.crt
+
+## --- environment config ---
+RANDOM_PSK=$(head /dev/urandom | tr -dc a-z0-9 | head -c 4)
+PSK=${PSK:-$RANDOM_PSK}
+IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
+L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
+DNS_SERVER1=$(echo ${DNS_SERVER} | awk -F ',' '{print $1}')
+DNS_SERVER2=$(echo ${DNS_SERVER} | awk -F ',' '{print $2}')
+DNS_SERVER1=${DNS_SERVER1:-8.8.4.4}
+DNS_SERVER2=${DNS_SERVER2:-64.6.64.6}
+LEFT_ID=$(openssl x509 -in ${SERVER_CERT_FILE} -noout -subject 2>/dev/null | grep -o "CN=.*" | cut -c 4-)
+RIGHT_AUTH=eap-radius
+RIGHT_AUTH2=xauth-radius
+RADIUS_SECRET=${RADIUS_SECRET:-secret}
+RADIUS_ADDRESS=${RADIUS_ADDRESS:-localhost}
+
+## --- print ---
+echo "PSK: ${PSK}"
+echo "LEFT_ID: ${LEFT_ID}"
+echo "IKE_NETWORK: ${IKE_NETWORK}"
+echo "L2TP_NETWORK: ${L2TP_NETWORK}"
+echo "DNS_SERVER1: ${DNS_SERVER1}"
+echo "DNS_SERVER2: ${DNS_SERVER2}"
+
+## --- ipsec.secrets ---
+IPSEC_SECRETS=$(
+  cat <<EOL
+## --- keys ---
+: RSA server.crt
+: PSK "${PSK}"
+\n
+EOL
+)
+if [ ! -z "${USERNAME}" ] && [ ! -z "${PASSWORD}" ]; then
+  IPSEC_USERS=$(
+    cat <<EOL
+## --- users ---
+${USERNAME} : EAP "${PASSWORD}"
+${USERNAME} : XAUTH "${PASSWORD}"
+\n
+EOL
+  )
+  RIGHT_AUTH=eap-mschapv2
+  RIGHT_AUTH2=xauth
+  echo "USERNAME: ${USERNAME}"
+  echo "PASSWORD: ${PASSWORD}"
+else
+  echo "RADIUS_SECRET: ${RADIUS_SECRET}"
+  echo "RADIUS_ADDRESS: ${RADIUS_ADDRESS}"
+fi
+echo -e "${IPSEC_SECRETS}${IPSEC_USERS}## EOF\n" >${IPSEC_PATH}/ipsec.secrets
+
+## --- ipsec.conf ---
+sed \
+  -e "s/{{LEFT_ID}}/${LEFT_ID}/g" \
+  -e "s/{{RIGHT_AUTH}}/${RIGHT_AUTH}/g" \
+  -e "s/{{RIGHT_AUTH2}}/${RIGHT_AUTH2}/g" \
+  -e "s@{{IKE_NETWORK}}@${IKE_NETWORK}@g" \
+  ${TEMPLATE_PATH}/ipsec.conf >${IPSEC_PATH}/ipsec.conf
+
+## --- xl2tpd.conf ---
+L2TP_PRE_NETWORK=$(echo ${L2TP_NETWORK} | awk -F '.' '{print $1"."$2"."$3}')
+sed \
+  -e "s@{{L2TP_PRE_NETWORK}}@${L2TP_PRE_NETWORK}@g" \
+  ${TEMPLATE_PATH}/xl2tpd.conf >/etc/xl2tpd/xl2tpd.conf
+
+## --- options.xl2tpd ---
+sed \
+  -e "s@{{DNS_SERVER1}}@${DNS_SERVER1}@g" \
+  -e "s@{{DNS_SERVER2}}@${DNS_SERVER2}@g" \
+  ${TEMPLATE_PATH}/options.xl2tpd >/etc/ppp/options.xl2tpd
+
+## --- strongswan.conf ---
+sed \
+  -e "s@{{DNS_SERVER1}}@${DNS_SERVER1}@g" \
+  -e "s@{{DNS_SERVER2}}@${DNS_SERVER2}@g" \
+  -e "s@{{RADIUS_SECRET}}@${RADIUS_SECRET}@g" \
+  -e "s@{{RADIUS_ADDRESS}}@${RADIUS_ADDRESS}@g" \
+  ${TEMPLATE_PATH}/strongswan.conf >/etc/strongswan.conf
+
+## --- radiusclient.servers ---
+sed \
+  -e "s@{{RADIUS_SECRET}}@${RADIUS_SECRET}@g" \
+  -e "s@{{RADIUS_ADDRESS}}@${RADIUS_ADDRESS}@g" \
+  ${TEMPLATE_PATH}/radiusclient.servers >/etc/radiusclient/servers
+
+## --- radiusclient.conf ---
+sed \
+  -e "s@{{RADIUS_ADDRESS}}@${RADIUS_ADDRESS}@g" \
+  ${TEMPLATE_PATH}/radiusclient.conf >/etc/radiusclient/radiusclient.conf
+
+## EOF
