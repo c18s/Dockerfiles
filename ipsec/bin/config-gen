@@ -16,6 +16,7 @@ DNS_SERVER2=${DNS_SERVER2:-64.6.64.6}
 LEFT_ID=$(openssl x509 -in ${SERVER_CERT_FILE} -noout -subject 2>/dev/null | grep -o "CN=.*" | cut -c 4-)
 RIGHT_AUTH=eap-radius
 RIGHT_AUTH2=xauth-radius
+STRONGSWAN_RADIUS=".radius"
 RADIUS_SECRET=${RADIUS_SECRET:-secret}
 RADIUS_ADDRESS=${RADIUS_ADDRESS:-localhost}
 WEB_PORT=${WEB_PORT:-40080}
@@ -48,6 +49,7 @@ EOL
   )
   RIGHT_AUTH=eap-mschapv2
   RIGHT_AUTH2=xauth
+  STRONGSWAN_RADIUS=""
   echo "USERNAME: ${USERNAME}"
   echo "PASSWORD: ${PASSWORD}"
 else
@@ -82,7 +84,7 @@ sed \
   -e "s@{{DNS_SERVER2}}@${DNS_SERVER2}@g" \
   -e "s@{{RADIUS_SECRET}}@${RADIUS_SECRET}@g" \
   -e "s@{{RADIUS_ADDRESS}}@${RADIUS_ADDRESS}@g" \
-  ${TEMPLATE_PATH}/strongswan.conf >/etc/strongswan.conf
+  ${TEMPLATE_PATH}/strongswan${STRONGSWAN_RADIUS}.conf >/etc/strongswan.conf
 
 ## --- radiusclient.servers ---
 sed \
