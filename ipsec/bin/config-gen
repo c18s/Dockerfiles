@@ -94,4 +94,7 @@ sed \
   -e "s@{{RADIUS_ADDRESS}}@${RADIUS_ADDRESS}@g" \
   ${TEMPLATE_PATH}/radiusclient.conf >/etc/radiusclient/radiusclient.conf
 
+## --- supervisord ---
+ln -sf /etc/ipsec.d/config/supervisord.conf /etc/supervisord.conf
+
 ## EOF

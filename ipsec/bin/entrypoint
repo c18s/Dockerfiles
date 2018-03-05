@@ -1,0 +1,10 @@
+#!/bin/sh
+## --- certificate ---
+/usr/local/bin/cert-gen
+
+## --- config ---
+/usr/local/bin/config-gen
+
+exec $@
+
+## EOF

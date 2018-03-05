@@ -18,7 +18,7 @@ Internet Protocol Security [(IPsec)][1] is a network protocol suite that authent
 Run container
 
 ```bash
-docker run -d -p 500:500/udp -p 4500:4500/udp --name ipsec --privileged -v /lib/modules:/lib/modules c18s/ipsec
+docker run -d -e PSK=1234 -e USERNAME=dev -e PASSWORD=1234 -p 500:500/udp -p 4500:4500/udp -p 40080:40080 --name ipsec --privileged -v /lib/modules:/lib/modules c18s/ipsec
 ```
 
 docker-compose.yml
@@ -30,8 +30,13 @@ ipsec:
   ports:
     - '0.0.0.0:500:500/udp'
     - '0.0.0.0:4500:4500/udp'
+    - '0.0.0.0:40080:40080'
   volumes:
     - '/lib/modules:/lib/modules'
+  environment:
+    - PSK=1234
+    - USERNAME=dev
+    - PASSWORD=1234
   restart: always
 ```
 

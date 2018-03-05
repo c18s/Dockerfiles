@@ -4,6 +4,11 @@ ipsec:
   ports:
     - '0.0.0.0:500:500/udp'
     - '0.0.0.0:4500:4500/udp'
+    - '0.0.0.0:40080:40080'
   volumes:
     - '/lib/modules:/lib/modules'
+  environment:
+    - PSK=1234
+    - USERNAME=dev
+    - PASSWORD=1234
   restart: always

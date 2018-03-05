@@ -6,8 +6,10 @@ WORKDIR /etc/ipsec.d
 COPY bin/. /usr/local/bin/
 ADD config ${WORKDIR}/config
 
-EXPOSE 500/udp 4500/udp
+EXPOSE 500/udp 4500/udp 40080
 
 RUN docker-init
 
-CMD tail -f /dev/null
+ENTRYPOINT ["entrypoint"]
+
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
