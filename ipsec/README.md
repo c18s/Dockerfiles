@@ -1,4 +1,4 @@
-# Ipsec - Internet Protocol Security
+# IPsec - Internet Protocol Security
 
 [![Docker Build Status](https://img.shields.io/docker/build/c18s/ipsec.svg)][dockerhub_build]
 [![Docker Automated build](https://img.shields.io/docker/automated/c18s/ipsec.svg)][dockerhub]
