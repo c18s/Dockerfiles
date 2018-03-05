@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 ## --- packages ---
 apk add --no-cache \
   ppp \
