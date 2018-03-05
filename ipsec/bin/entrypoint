@@ -5,6 +5,9 @@
 ## --- config ---
 /usr/local/bin/config-gen
 
-exec $@
+## --- firewall ---
+/usr/local/bin/firewall
+
+exec supervisord -c /etc/supervisord.conf
 
 ## EOF

@@ -18,6 +18,7 @@ RIGHT_AUTH=eap-radius
 RIGHT_AUTH2=xauth-radius
 RADIUS_SECRET=${RADIUS_SECRET:-secret}
 RADIUS_ADDRESS=${RADIUS_ADDRESS:-localhost}
+WEB_PORT=${WEB_PORT:-40080}
 
 ## --- print ---
 echo "PSK: ${PSK}"
@@ -93,6 +94,11 @@ sed \
 sed \
   -e "s@{{RADIUS_ADDRESS}}@${RADIUS_ADDRESS}@g" \
   ${TEMPLATE_PATH}/radiusclient.conf >/etc/radiusclient/radiusclient.conf
+
+## --- lighttpd.conf ---
+sed \
+  -e "s@{{WEB_PORT}}@${WEB_PORT}@g" \
+  ${TEMPLATE_PATH}/lighttpd.conf >/etc/lighttpd.conf
 
 ## --- supervisord ---
 ln -sf /etc/ipsec.d/config/supervisord.conf /etc/supervisord.conf

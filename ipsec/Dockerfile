@@ -10,6 +10,4 @@ EXPOSE 500/udp 4500/udp 40080
 
 RUN docker-init
 
-ENTRYPOINT ["entrypoint"]
-
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["entrypoint"]
