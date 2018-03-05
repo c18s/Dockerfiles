@@ -1,0 +1,6 @@
+*.md
+*.png
+.gitignore
+Makefile
+docker-compose.yml
+certs
