@@ -33,7 +33,11 @@ firewall() {
   iptables -t mangle ${FLAG} FORWARD --match policy --pol ipsec --dir in -s ${L2TP_NETWORK} -o ${INET} -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360 2>/dev/null
 }
 
-firewall -D
-firewall -A
+if [ "$1" = "-D" ] || [ "$1" = "-A" ]; then
+  firewall $1
+else
+  firewall -D
+  firewall -A
+fi
 
 ## EOF
