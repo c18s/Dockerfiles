@@ -54,4 +54,8 @@ LIFETIME=${LIFETIME:-3650}
     --san="${SERVER}" --flag serverAuth --flag ikeIntermediate \
     --outform pem >${SERVER_CERT_FILE}
 
+## --- copy ca.crt to client config path ---
+mkdir -p ${IPSEC_PATH}/config/client
+ln -sf ${CA_CERT_FILE} ${IPSEC_PATH}/config/client/ca.crt
+
 ## EOF
