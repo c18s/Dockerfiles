@@ -8,6 +8,9 @@
 ## --- firewall ---
 /usr/local/bin/firewall
 
+## --- sysctl ---
+sysctl -p /etc/ipsec.d/config/sysctl.conf
+
 exec supervisord -c /etc/supervisord.conf
 
 ## EOF

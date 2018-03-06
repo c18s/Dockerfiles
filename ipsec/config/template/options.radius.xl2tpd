@@ -27,4 +27,10 @@ ipcp-accept-remote
 ms-dns {{DNS_SERVER1}}
 ms-dns {{DNS_SERVER2}}
 
+## --- radius ---
+plugin radius.so
+plugin radattr.so
+avpair NAS-Port-Id=1701
+radius-config-file /etc/radiusclient/radiusclient.conf
+
 ## EOF

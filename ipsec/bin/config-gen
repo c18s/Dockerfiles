@@ -76,7 +76,7 @@ sed \
 sed \
   -e "s@{{DNS_SERVER1}}@${DNS_SERVER1}@g" \
   -e "s@{{DNS_SERVER2}}@${DNS_SERVER2}@g" \
-  ${TEMPLATE_PATH}/options.xl2tpd >/etc/ppp/options.xl2tpd
+  ${TEMPLATE_PATH}/options${STRONGSWAN_RADIUS}.xl2tpd >/etc/ppp/options.xl2tpd
 
 ## --- strongswan.conf ---
 sed \

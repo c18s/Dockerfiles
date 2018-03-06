@@ -4,10 +4,6 @@ INET=${INET:-eth0}
 IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
 L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
 
-## --- sysctl ---
-sysctl -w net.ipv4.ip_forward=1
-sysctl -w net.ipv4.ip_no_pmtu_disc=1
-
 firewall() {
   FLAG=$1
   ## --- Allowing Established, Related Sessions ---
