@@ -52,6 +52,7 @@ EOL
   STRONGSWAN_RADIUS=""
   echo "USERNAME: ${USERNAME}"
   echo "PASSWORD: ${PASSWORD}"
+  echo "${USERNAME} * ${PASSWORD} *" >/etc/xl2tpd/l2tp-secret
 else
   echo "RADIUS_SECRET: ${RADIUS_SECRET}"
   echo "RADIUS_ADDRESS: ${RADIUS_ADDRESS}"
