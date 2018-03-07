@@ -9,6 +9,8 @@ firewall() {
   ## --- Allowing Established, Related Sessions ---
   iptables ${FLAG} INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null ||
     iptables ${FLAG} INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT 2>/dev/null
+  iptables ${FLAG} OUTPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null ||
+    iptables ${FLAG} OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT 2>/dev/null
   iptables ${FLAG} FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null ||
     iptables ${FLAG} FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT 2>/dev/null
 

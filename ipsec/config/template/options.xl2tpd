@@ -8,19 +8,19 @@ require-mschap-v2
 
 ## --- miscellaneous ---
 auth
-noccp
-idle 1800
-mtu 1360
-mru 1360
+#noccp
+#idle 1800
+#mtu 1360
+#mru 1360
 hide-password
 lcp-echo-failure 10
 lcp-echo-interval 60
 connect-delay 5000
 
 ## --- network ---
-lock
+#lock
 proxyarp
-asyncmap 0
+#asyncmap 0
 nodefaultroute
 ipcp-accept-local
 ipcp-accept-remote
