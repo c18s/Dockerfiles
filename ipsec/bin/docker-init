@@ -20,7 +20,7 @@ rm -rf /var/log/* /var/cache/apk/*
 touch /etc/xl2tpd/l2tp-secrets
 ln -sfv /etc/ipsec.conf /etc/ipsec.d/ipsec.conf
 ln -sfv /etc/ipsec.secrets /etc/ipsec.d/ipsec.secrets
-ln -sfv /etc/xl2tpd/l2tp-secrets /etc/ipsec.d/l2tp.secrets
+ln -sfv /etc/ppp/chap-secrets /etc/ipsec.d/chap-secrets
 
 ## --- remove self ---
 rm -- "$0"

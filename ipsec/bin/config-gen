@@ -52,7 +52,7 @@ EOL
   STRONGSWAN_RADIUS=""
   echo "USERNAME: ${USERNAME}"
   echo "PASSWORD: ${PASSWORD}"
-  echo "${USERNAME} * ${PASSWORD} *" >${IPSEC_PATH}/l2tp.secrets
+  echo "${USERNAME} * ${PASSWORD} *" >${IPSEC_PATH}/chap-secrets
 else
   echo "RADIUS_SECRET: ${RADIUS_SECRET}"
   echo "RADIUS_ADDRESS: ${RADIUS_ADDRESS}"

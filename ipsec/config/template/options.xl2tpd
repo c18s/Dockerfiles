@@ -8,16 +8,14 @@ require-mschap-v2
 
 ## --- miscellaneous ---
 auth
-lock
 noccp
-crtscts
 hide-password
 
 ## --- network ---
 proxyarp
-mtu 1360
-mru 1360
-idle 1800
+#mtu 1360
+#mru 1360
+#idle 1800
 nodefaultroute
 ipcp-accept-local
 ipcp-accept-remote
