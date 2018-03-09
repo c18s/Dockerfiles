@@ -11,7 +11,10 @@ apk add --no-cache \
   util-linux \
   lighttpd \
   supervisor \
-  bind-tools
+  bind-tools \
+  py2-pip
+
+pip install envtpl
 
 ## --- clear ---
 rm -rf /var/log/* /var/cache/apk/*

@@ -6,8 +6,8 @@ nologin         /etc/nologin
 issue           /etc/radiusclient/issue
 
 ## --- radius server ---
-authserver      {{RADIUS_ADDRESS}}:1812
-acctserver      {{RADIUS_ADDRESS}}:1813
+authserver      {{ RADIUS_ADDRESS }}:1812
+acctserver      {{ RADIUS_ADDRESS }}:1813
 
 servers         /etc/radiusclient/servers
 dictionary      /etc/radiusclient/dictionary
@@ -17,9 +17,6 @@ mapfile         /etc/radiusclient/port-id-map
 default_realm
 radius_timeout  10
 radius_retries  3
-
-## --- nas ---
-#nas_identifier MyUniqueNASName
 
 ## --- local ---
 login_local     /bin/login

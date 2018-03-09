@@ -7,8 +7,8 @@ conn %default
     keylife=1h
     keyingtries=3
     ikelifetime=8h
-    dpddelay=30s
-    dpdtimeout=90s
+    dpddelay=10s
+    dpdtimeout=60s
     dpdaction=clear
     fragmentation=yes
 
@@ -16,22 +16,22 @@ conn IKE-Base
     leftcert=server.crt
     leftsendcert=always
     leftsubnet=0.0.0.0/0
-    leftid=@{{LEFT_ID}}
-    rightsourceip={{IKE_NETWORK}}
+    leftid=@{{ LEFT_ID }}
+    rightsourceip={{ IKE_NETWORK }}
 
 conn IKEv1-PSK-XAuth
     also=IKE-Base
     keyexchange=ikev1
     leftauth=psk
     rightauth=psk
-    rightauth2={{RIGHT_AUTH2}}
+    rightauth2={{ RIGHT_AUTH2 }}
     auto=add
 
 conn IKEv2-EAP-MSCHAPv2
     also=IKE-Base
     keyexchange=ikev2
     eap_identity=%any
-    rightauth={{RIGHT_AUTH}}
+    rightauth={{ RIGHT_AUTH }}
     auto=add
 
 conn L2TP-IKEv1-PSK
