@@ -5,51 +5,50 @@ IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
 L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
 
 firewall() {
-  FLAG=$1
+  CHAIN_CMD=$1
+  [ "${CHAIN_CMD}" = "-D" ] && N=""
   ## --- input ---
-  iptables -I INPUT 1 -m conntrack --ctstate INVALID -j DROP
-  iptables -I INPUT 2 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-  iptables -I INPUT 3 -p udp -m multiport --dports 500,4500 -j ACCEPT
-  iptables -I INPUT 4 -p udp -m udp --dport 1701 -m policy --dir in --pol ipsec -j ACCEPT
-  iptables -I INPUT 5 -p udp -m udp --dport 1701 -j DROP
+  iptables ${CHAIN_CMD:--I} INPUT ${N-1} -m conntrack --ctstate INVALID -j DROP
+  iptables ${CHAIN_CMD:--I} INPUT ${N-2} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} INPUT ${N-3} -p udp -m multiport --dports 500,4500 -j ACCEPT
+  iptables ${CHAIN_CMD:--I} INPUT ${N-4} -p udp -m udp --dport 1701 -m policy --dir in --pol ipsec -j ACCEPT
+  iptables ${CHAIN_CMD:--I} INPUT ${N-5} -p udp -m udp --dport 1701 -j DROP
   ## --- forward ---
-  iptables -I FORWARD 1 -m conntrack --ctstate INVALID -j DROP
-  iptables -I FORWARD 2 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-1} -m conntrack --ctstate INVALID -j DROP
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-2} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-3} -i ppp+ -o ${INET} -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-4} -i ${INET} -d ${L2TP_NETWORK} -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-5} -s ${L2TP_NETWORK} -o ${INET} -j ACCEPT
   ## --- mangle forward ---
-  iptables -t mangle -I FORWARD 1 -p tcp -m policy --dir in --pol ipsec -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
-  iptables -t mangle -I FORWARD 2 -p tcp -m policy --dir out --pol ipsec -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
+  iptables -t mangle ${CHAIN_CMD:--I} FORWARD ${N-1} -p tcp -m policy --dir in --pol ipsec -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
+  iptables -t mangle ${CHAIN_CMD:--I} FORWARD ${N-2} -p tcp -m policy --dir out --pol ipsec -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
   ## --- output ---
-  iptables -I OUTPUT 1 -m conntrack --ctstate INVALID -j DROP
-  iptables -I OUTPUT 2 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-  iptables -I OUTPUT 3 -p udp -m udp --sport 1701 -m policy --dir out --pol ipsec -j ACCEPT
-  iptables -I OUTPUT 4 -p udp -m udp --sport 1701 -j DROP
+  iptables ${CHAIN_CMD:--I} OUTPUT ${N-1} -m conntrack --ctstate INVALID -j DROP
+  iptables ${CHAIN_CMD:--I} OUTPUT ${N-2} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} OUTPUT ${N-3} -p udp -m udp --sport 1701 -m policy --dir out --pol ipsec -j ACCEPT
+  iptables ${CHAIN_CMD:--I} OUTPUT ${N-4} -p udp -m udp --sport 1701 -j DROP
 
-  #iptables -I FORWARD 2 -i eth+ -o ppp+ -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-  #iptables -I FORWARD 3 -i ppp+ -o eth+ -j ACCEPT
-  #iptables -I FORWARD 4 -i eth+ -d 192.168.43.0/24 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-  #iptables -I FORWARD 5 -s 192.168.43.0/24 -o eth+ -j ACCEPT
-
-  #iptables -t nat -I POSTROUTING -s 192.168.43.0/24 -o eth+ -m policy --dir out --pol none -j SNAT --to-source "$PRIVATE_IP"
-  #iptables -t nat -I POSTROUTING -s 192.168.42.0/24 -o eth+ -j SNAT --to-source "$PRIVATE_IP"
+  #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s 192.168.43.0/24 -o eth+ -m policy --dir out --pol none -j SNAT --to-source "$PRIVATE_IP"
+  #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s 192.168.42.0/24 -o eth+ -j SNAT --to-source "$PRIVATE_IP"
 
   ## --- forward ESP (Encapsulating Security Payload) traffic so the VPN clients will be able to connect ---
-  #iptables -I FORWARD --match policy --pol ipsec --dir in --proto esp -s ${IKE_NETWORK} -j ACCEPT
-  #iptables -I FORWARD --match policy --pol ipsec --dir in --proto esp -s ${L2TP_NETWORK} -j ACCEPT
-  #iptables -I FORWARD --match policy --pol ipsec --dir out --proto esp -d ${IKE_NETWORK} -j ACCEPT
-  #iptables -I FORWARD --match policy --pol ipsec --dir out --proto esp -d ${L2TP_NETWORK} -j ACCEPT
+  #iptables ${CHAIN_CMD:--I} FORWARD --match policy --pol ipsec --dir in --proto esp -s ${IKE_NETWORK} -j ACCEPT
+  #iptables ${CHAIN_CMD:--I} FORWARD --match policy --pol ipsec --dir in --proto esp -s ${L2TP_NETWORK} -j ACCEPT
+  #iptables ${CHAIN_CMD:--I} FORWARD --match policy --pol ipsec --dir out --proto esp -d ${IKE_NETWORK} -j ACCEPT
+  #iptables ${CHAIN_CMD:--I} FORWARD --match policy --pol ipsec --dir out --proto esp -d ${L2TP_NETWORK} -j ACCEPT
 
   ## --- allow traffic to flow from the VPN clients to the internet ---
-  #iptables -t nat -I POSTROUTING -s ${IKE_NETWORK} -o ${INET} -m policy --pol ipsec --dir out -j ACCEPT
-  #iptables -t nat -I POSTROUTING -s ${L2TP_NETWORK} -o ${INET} -m policy --pol ipsec --dir out -j ACCEPT
-  #iptables -t nat -I POSTROUTING -s ${IKE_NETWORK} -o ${INET} -j MASQUERADE
-  #iptables -t nat -I POSTROUTING -s ${L2TP_NETWORK} -o ${INET} -j MASQUERADE
+  #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s ${IKE_NETWORK} -o ${INET} -m policy --pol ipsec --dir out -j ACCEPT
+  #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s ${L2TP_NETWORK} -o ${INET} -m policy --pol ipsec --dir out -j ACCEPT
+  #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s ${IKE_NETWORK} -o ${INET} -j MASQUERADE
+  #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s ${L2TP_NETWORK} -o ${INET} -j MASQUERADE
 }
 
-if [ "$1" = "-D" ] || [ "$1" = "-A" ]; then
+if [ "$1" = "-D" ] || [ "$1" = "-I" ]; then
   firewall $1
 else
   firewall -D
-  firewall -A
+  firewall -I
 fi
 
 ## EOF
