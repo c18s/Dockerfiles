@@ -2,7 +2,8 @@
 echo "READY"
 
 while read line; do
-  firewall -D
+  /usr/local/bin/firewall -D
+  sleep 1
   echo "Processing Event: $line" >&2;
   kill -3 $(cat "/var/run/supervisord.pid")
 done < /dev/stdin

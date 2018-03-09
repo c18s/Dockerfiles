@@ -44,11 +44,20 @@ firewall() {
   #iptables -t nat ${CHAIN_CMD:--I} POSTROUTING -s ${L2TP_NETWORK} -o ${INET} -j MASQUERADE
 }
 
-if [ "$1" = "-D" ] || [ "$1" = "-I" ]; then
-  firewall $1
-else
-  firewall -D
+case "$1" in
+  "-D")
+  echo "Delete firewall"
+  firewall -D 2>/dev/null
+  ;;
+  "-I")
+  echo "Insert firewall"
   firewall -I
-fi
+  ;;
+  *)
+  echo "Reinstall firewall"
+  firewall -D 2>/dev/null
+  firewall -I
+  ;;
+esac
 
 ## EOF
