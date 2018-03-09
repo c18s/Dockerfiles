@@ -9,70 +9,69 @@ RANDOM_PSK=$(head /dev/urandom | tr -dc a-z0-9 | head -c 4)
 PSK=${PSK:-$RANDOM_PSK}
 IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
 L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
+L2TP_PRE_NETWORK=$(echo ${L2TP_NETWORK} | awk -F '.' '{print $1"."$2"."$3}')
 DNS_SERVER1=$(echo ${DNS_SERVER} | awk -F ',' '{print $1}')
 DNS_SERVER2=$(echo ${DNS_SERVER} | awk -F ',' '{print $2}')
 DNS_SERVER1=${DNS_SERVER1:-8.8.4.4}
 DNS_SERVER2=${DNS_SERVER2:-64.6.64.6}
-LEFT_ID=$(openssl x509 -in ${SERVER_CERT_FILE} -noout -subject 2>/dev/null | grep -o "CN=.*" | cut -c 4- | sed s/*.//)
-RIGHT_AUTH=eap-radius
-RIGHT_AUTH2=xauth-radius
-ENABLE_RADIUS=1
-STRONGSWAN_RADIUS=".radius"
+WEB_PORT=${WEB_PORT:-40080}
 RADIUS_SECRET=${RADIUS_SECRET:-secret}
 RADIUS_ADDRESS=${RADIUS_ADDRESS:-localhost}
-WEB_PORT=${WEB_PORT:-40080}
+ENABLE_RADIUS=1
+RIGHT_AUTH=eap-radius
+RIGHT_AUTH2=xauth-radius
+LEFT_ID=$(openssl x509 -in ${SERVER_CERT_FILE} -noout -subject 2>/dev/null | grep -o "CN=.*" | cut -c 4- | sed s/*.//)
+
+## --- export ---
+export PSK USERNAME PASSWORD LEFT_ID RIGHT_AUTH RIGHT_AUTH2 \
+  IKE_NETWORK L2TP_PRE_NETWORK DNS_SERVER1 DNS_SERVER2 ENABLE_RADIUS \
+  RADIUS_SECRET RADIUS_ADDRESS WEB_PORT
 
 ## --- print ---
+echo "---"
 echo "PSK: ${PSK}"
 echo "LEFT_ID: ${LEFT_ID}"
 echo "IKE_NETWORK: ${IKE_NETWORK}"
 echo "L2TP_NETWORK: ${L2TP_NETWORK}"
 echo "DNS_SERVER1: ${DNS_SERVER1}"
 echo "DNS_SERVER2: ${DNS_SERVER2}"
-
 if [ ! -z "${USERNAME}" ] && [ ! -z "${PASSWORD}" ]; then
   unset ENABLE_RADIUS
   RIGHT_AUTH=eap-mschapv2
   RIGHT_AUTH2=xauth
   echo "USERNAME: ${USERNAME}"
   echo "PASSWORD: ${PASSWORD}"
-  echo "${USERNAME} * ${PASSWORD} *" >${IPSEC_PATH}/chap-secrets
 else
   echo "RADIUS_SECRET: ${RADIUS_SECRET}"
   echo "RADIUS_ADDRESS: ${RADIUS_ADDRESS}"
 fi
+echo "---"
 
 ## --- ipsec.secrets ---
-export PSK USERNAME PASSWORD
 envtpl --keep-template -o ${IPSEC_PATH}/ipsec.secrets ${TEMPLATE_PATH}/ipsec.secrets.tpl
 
+## --- chap-secrets ---
+envtpl --keep-template -o ${IPSEC_PATH}/chap-secrets ${TEMPLATE_PATH}/chap-secrets.tpl
+
 ## --- ipsec.conf ---
-export LEFT_ID RIGHT_AUTH RIGHT_AUTH2 IKE_NETWORK
 envtpl --keep-template -o ${IPSEC_PATH}/ipsec.conf ${TEMPLATE_PATH}/ipsec.conf.tpl
 
 ## --- xl2tpd.conf ---
-L2TP_PRE_NETWORK=$(echo ${L2TP_NETWORK} | awk -F '.' '{print $1"."$2"."$3}')
-export L2TP_PRE_NETWORK
 envtpl --keep-template -o /etc/xl2tpd/xl2tpd.conf ${TEMPLATE_PATH}/xl2tpd.conf.tpl
 
-## --- options.xl2tpd ---
-export DNS_SERVER1 DNS_SERVER2 ENABLE_RADIUS
-envtpl --keep-template -o /etc/ppp/options.xl2tpd ${TEMPLATE_PATH}/options.xl2tpd.tpl
-
 ## --- strongswan.conf ---
-export DNS_SERVER1 DNS_SERVER2 RADIUS_SECRET RADIUS_ADDRESS
 envtpl --keep-template -o /etc/strongswan.conf ${TEMPLATE_PATH}/strongswan.conf.tpl
 
+## --- options.xl2tpd ---
+envtpl --keep-template -o /etc/ppp/options.xl2tpd ${TEMPLATE_PATH}/options.xl2tpd.tpl
+
 ## --- radiusclient.servers ---
-export RADIUS_SECRET RADIUS_ADDRESS
 envtpl --keep-template -o /etc/radiusclient/servers ${TEMPLATE_PATH}/radiusclient.servers.tpl
 
 ## --- radiusclient.conf ---
-export RADIUS_ADDRESS
 envtpl --keep-template -o /etc/radiusclient/radiusclient.conf ${TEMPLATE_PATH}/radiusclient.conf.tpl
 
 ## --- lighttpd.conf ---
-export WEB_PORT
 envtpl --keep-template -o /etc/lighttpd.conf ${TEMPLATE_PATH}/lighttpd.conf.tpl
 
 ## --- supervisord ---
