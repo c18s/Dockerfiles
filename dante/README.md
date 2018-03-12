@@ -5,7 +5,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/dante.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/dante.svg)][dockerhub_tag]
 
-![Dante](logo.png "Dante Logo")
+![Dante](https://raw.githubusercontent.com/c18s/Dockerfiles/master/dante/logo.png "Dante Logo")
 
 ----
 

@@ -5,7 +5,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/ipsec.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/ipsec.svg)][dockerhub_tag]
 
-![IPsec](logo.png "IPsec Logo")
+![IPsec](https://raw.githubusercontent.com/c18s/Dockerfiles/master/ipsec/logo.png "IPsec Logo")
 
 ----
 
