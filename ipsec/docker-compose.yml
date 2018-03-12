@@ -12,4 +12,5 @@ ipsec:
     - PSK=4321
     - USERNAME=dev
     - PASSWORD=1234
+    - SERVER=localhost
   restart: always
