@@ -79,6 +79,7 @@ envtpl --keep-template -o /etc/radiusclient/radiusclient.conf ${TEMPLATE_PATH}/r
 envtpl --keep-template -o /etc/lighttpd.conf ${TEMPLATE_PATH}/lighttpd.conf.tpl
 
 ## --- mobileconfig ---
+mkdir -p ${IPSEC_PATH}/config/client
 envtpl --keep-template -o ${IPSEC_PATH}/config/client/ipsec.mobileconfig ${TEMPLATE_PATH}/client-ipsec.mobileconfig.tpl
 envtpl --keep-template -o ${IPSEC_PATH}/config/client/l2tp.mobileconfig ${TEMPLATE_PATH}/client-l2tp.mobileconfig.tpl
 envtpl --keep-template -o ${IPSEC_PATH}/config/client/ikev2.mobileconfig ${TEMPLATE_PATH}/client-ikev2.mobileconfig.tpl
