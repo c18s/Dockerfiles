@@ -81,6 +81,7 @@ envtpl --keep-template -o /etc/lighttpd.conf ${TEMPLATE_PATH}/lighttpd.conf.tpl
 ## --- mobileconfig ---
 envtpl --keep-template -o ${IPSEC_PATH}/config/client/ipsec.mobileconfig ${TEMPLATE_PATH}/client-ipsec.mobileconfig.tpl
 envtpl --keep-template -o ${IPSEC_PATH}/config/client/l2tp.mobileconfig ${TEMPLATE_PATH}/client-l2tp.mobileconfig.tpl
+envtpl --keep-template -o ${IPSEC_PATH}/config/client/ikev2.mobileconfig ${TEMPLATE_PATH}/client-ikev2.mobileconfig.tpl
 
 ## --- supervisord ---
 ln -sf /etc/ipsec.d/config/supervisord.conf /etc/supervisord.conf

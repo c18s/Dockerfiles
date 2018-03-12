@@ -5,7 +5,7 @@
 	<key>PayloadContent</key>
 	<array>
 		<dict>
-			<key>IPSec</key>
+			<key>L2TP</key>
 			<dict>
 				<key>AuthenticationMethod</key>
 				<string>SharedSecret</string>
