@@ -9,6 +9,7 @@ RANDOM_PSK=$(head /dev/urandom | tr -dc a-z0-9 | head -c 4)
 PSK=${PSK:-$RANDOM_PSK}
 PSK_B64=$(echo -n "${PSK}" | base64)
 SERVER=${SERVER:-localhost}
+SERVER_MD5=$(echo -n "${SERVER}" | md5sum | awk {'print $1'})
 IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
 L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
 L2TP_PRE_NETWORK=$(echo ${L2TP_NETWORK} | awk -F '.' '{print $1"."$2"."$3}')
@@ -27,7 +28,7 @@ LEFT_ID=$(openssl x509 -in ${SERVER_CERT_FILE} -noout -subject 2>/dev/null | gre
 ## --- export ---
 export PSK USERNAME PASSWORD LEFT_ID RIGHT_AUTH RIGHT_AUTH2 \
   IKE_NETWORK L2TP_PRE_NETWORK DNS_SERVER1 DNS_SERVER2 ENABLE_RADIUS \
-  RADIUS_SECRET RADIUS_ADDRESS WEB_PORT SERVER PSK_B64
+  RADIUS_SECRET RADIUS_ADDRESS WEB_PORT SERVER PSK_B64 SERVER_MD5
 
 ## --- print ---
 echo "---"
@@ -79,6 +80,7 @@ envtpl --keep-template -o /etc/lighttpd.conf ${TEMPLATE_PATH}/lighttpd.conf.tpl
 
 ## --- mobileconfig ---
 envtpl --keep-template -o ${IPSEC_PATH}/config/client/ipsec.mobileconfig ${TEMPLATE_PATH}/client-ipsec.mobileconfig.tpl
+envtpl --keep-template -o ${IPSEC_PATH}/config/client/l2tp.mobileconfig ${TEMPLATE_PATH}/client-l2tp.mobileconfig.tpl
 
 ## --- supervisord ---
 ln -sf /etc/ipsec.d/config/supervisord.conf /etc/supervisord.conf
