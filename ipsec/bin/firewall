@@ -20,8 +20,8 @@ firewall() {
   iptables ${CHAIN_CMD:--I} FORWARD ${N-1} -m conntrack --ctstate INVALID -j DROP
   iptables ${CHAIN_CMD:--I} FORWARD ${N-2} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
   iptables ${CHAIN_CMD:--I} FORWARD ${N-3} -i ppp+ -o ${INET} -j ACCEPT
-  iptables ${CHAIN_CMD:--I} FORWARD ${N-4} -d ${IKE_NETWORK} -i ${INET} -j ACCEPT
-  iptables ${CHAIN_CMD:--I} FORWARD ${N-5} -s ${IKE_NETWORK} -o ${INET} -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-4} -s ${IKE_NETWORK} -o ${INET} -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-5} -d ${IKE_NETWORK} -i ${INET} -j ACCEPT
   ## --- mangle forward ---
   iptables -t mangle ${CHAIN_CMD:--I} FORWARD ${N-1} -p tcp -m policy --dir in --pol ipsec -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
   iptables -t mangle ${CHAIN_CMD:--I} FORWARD ${N-2} -p tcp -m policy --dir out --pol ipsec -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
