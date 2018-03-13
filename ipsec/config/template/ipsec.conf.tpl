@@ -21,6 +21,7 @@ conn IKE-Base
 
 conn IKEv1-PSK-XAuth
     also=IKE-Base
+    ike=aes128-sha1-modp1024!
     keyexchange=ikev1
     leftauth=psk
     rightauth=psk
