@@ -1,9 +1,4 @@
 #!/bin/sh
-## --- finish ---
-finish() {
-  /usr/local/bin/firewall -D
-}
-
 ## --- certificate ---
 /usr/local/bin/cert-gen
 
@@ -16,8 +11,7 @@ finish() {
 ## --- sysctl ---
 sysctl -p /etc/ipsec.d/config/sysctl.conf
 
-## --- clear firewall on exit ---
-trap finish EXIT
-supervisord -c /etc/supervisord.conf
+## --- run ---
+exec supervisord -c /etc/supervisord.conf
 
 ## EOF
