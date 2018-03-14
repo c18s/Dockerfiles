@@ -34,6 +34,7 @@ case "$1" in
 "-D")
   echo "Delete firewall"
   firewall -D 2>/dev/null
+  sleep 1
   ;;
 "-I")
   echo "Insert firewall"
@@ -42,7 +43,6 @@ case "$1" in
 *)
   echo "Reinstall firewall"
   firewall -D 2>/dev/null
-  sleep 1
   firewall -I
   ;;
 esac

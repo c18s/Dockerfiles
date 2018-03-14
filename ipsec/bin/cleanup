@@ -2,7 +2,6 @@
 cleanup() {
   echo "Cleaning stuff up..."
   /usr/local/bin/firewall -D
-  sleep 1
   exit
 }
 
