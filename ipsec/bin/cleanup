@@ -2,11 +2,12 @@
 cleanup() {
   echo "Cleaning stuff up..."
   /usr/local/bin/firewall -D
+  sleep 1
   exit
 }
 
 trap cleanup INT TERM
-echo ' --- Wait for clean to finish --- '
+echo 'Wait for clean to finish'
 read var
 cleanup
 
