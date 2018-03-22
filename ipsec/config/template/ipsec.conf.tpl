@@ -21,7 +21,7 @@ conn IKE-Base
 
 conn IKEv1-PSK-XAuth
     also=IKE-Base
-    ike=aes128-sha1-modp1024!
+    ike=aes128-sha1-modp1024
     keyexchange=ikev1
     leftauth=psk
     rightauth=psk
@@ -37,6 +37,8 @@ conn IKEv2-EAP-MSCHAPv2
 
 conn L2TP-IKEv1-PSK
     keyexchange=ikev1
+    ike=aes128-sha1-modp1024
+    esp=aes128-sha1-modp1024
     type=transport
     authby=secret
     leftprotoport=udp/l2tp
