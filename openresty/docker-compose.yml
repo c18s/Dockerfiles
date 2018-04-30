@@ -1,0 +1,6 @@
+dante:
+  image: c18s/openresty
+  ports:
+    - '80:80'
+    - '80:443'
+  restart: always
