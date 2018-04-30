@@ -13,6 +13,9 @@
 
 ----
 
+## Add module
+  - replace-filter-nginx-module
+
 ## Usage
 
 Run container
