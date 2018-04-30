@@ -28,7 +28,7 @@ docker-compose.yml
 
 ```yaml
 dante:
-  image: c18s/dante
+  image: c18s/openresty
   ports:
     - '80:80'
     - '443:443'
@@ -37,7 +37,7 @@ dante:
 
 ## Reference
 
-- :octocat: <https://github.com/c18s/Dockerfiles/tree/master/openresty`>
+- :octocat: <https://github.com/c18s/Dockerfiles/tree/master/openresty>
 - :whale: <https://hub.docker.com/r/c18s/openresty/>
 
 [1]: https://openresty.org
