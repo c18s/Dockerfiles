@@ -13,7 +13,7 @@
 
 ----
 
-## Add module
+## Add-on module
   - replace-filter-nginx-module
 
 ## Usage
