@@ -70,6 +70,7 @@ RUN apk add --no-cache --virtual .build-deps \
   perl \
   unzip \
   zlib \
+  sed \
   && curl -fSL https://github.com/openresty/sregex/archive/v${RESTY_SREGEX_VERSION}.tar.gz -o sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && tar zxf sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && mkdir -p /usr/src && mv sregex-${RESTY_SREGEX_VERSION} /usr/src/sregex \
