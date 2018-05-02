@@ -27,7 +27,7 @@ docker run -d -p 80:80 -p 443:443 --name openresty c18s/openresty
 docker-compose.yml
 
 ```yaml
-dante:
+openresty:
   image: c18s/openresty
   ports:
     - '80:80'

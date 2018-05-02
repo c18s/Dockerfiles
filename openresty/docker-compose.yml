@@ -1,4 +1,4 @@
-dante:
+openresty:
   image: c18s/openresty
   ports:
     - '80:80'
