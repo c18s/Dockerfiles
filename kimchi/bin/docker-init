@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+curl -fsSL https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -o epel.rpm
+
+## --- install ---
+yum -y install epel.rpm
+yum -y update
+yum -y install numpy sudo supervisor \
+  python-cherrypy python-cheetah PyPAM m2crypto \
+  python-jsonschema python-psutil python-ldap \
+  python-lxml nginx openssl python-websockify \
+  logrotate
+yum -y install wok.el7.noarch.rpm ginger-base.el7.noarch.rpm ginger.el7.noarch.rpm kimchi.el7.noarch.rpm
+
+## --- config ---
+sed -i 's/^#session_timeout = .*/session_timeout = 60/g' /etc/wok/wok.conf
+
+## --- mobile navbar-toggle ---
+sed -i 's/data-target="#nav-menu"/data-target=".navbar-collapse"/g' /usr/share/wok/ui/pages/wok-ui.html.tmpl
+
+## --- remove self ---
+rm -- "$0"
+
+## EOF

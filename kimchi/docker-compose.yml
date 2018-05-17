@@ -1,0 +1,5 @@
+kimchi:
+  image: c18s/kimchi
+  ports:
+    - '8001:8001'
+  restart: always
