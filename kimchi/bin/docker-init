@@ -1,17 +1,27 @@
 #!/bin/sh
-set -e
-
-curl -fsSL https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -o epel.rpm
 
 ## --- install ---
-yum -y install epel.rpm
-yum -y update
-yum -y install numpy sudo supervisor \
-  python-cherrypy python-cheetah PyPAM m2crypto \
-  python-jsonschema python-psutil python-ldap \
-  python-lxml nginx openssl python-websockify \
-  logrotate
-yum -y install wok.el7.noarch.rpm ginger-base.el7.noarch.rpm ginger.el7.noarch.rpm kimchi.el7.noarch.rpm
+apt-get update && apt-get -y install curl sudo supervisor
+
+curl -fsSL https://github.com/kimchi-project/kimchi/releases/download/2.5.0/wok-2.5.0-0.noarch.deb -o wok.deb
+curl -fsSL https://github.com/kimchi-project/kimchi/releases/download/2.5.0/kimchi-2.5.0-0.noarch.deb -o kimchi.deb
+
+## --- systemctl ---
+rm -rf /bin/systemctl
+cat >/bin/systemctl <<EOL
+#!/bin/sh
+echo "active"
+exit 0
+EOL
+chmod +x /bin/systemctl
+
+## --- mockup ---
+mkdir -p /run/user
+mkdir -p /var/run/libvirt/
+touch /var/run/libvirt/libvirt-sock
+
+dpkg -i wok.deb kimchi.deb 2>/dev/null
+apt-get -fy install
 
 ## --- config ---
 sed -i 's/^#session_timeout = .*/session_timeout = 60/g' /etc/wok/wok.conf

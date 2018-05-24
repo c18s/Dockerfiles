@@ -1,4 +1,18 @@
 #!/bin/sh
+## --- user ---
+if ! id -u "$USERNAME" >/dev/null 2>&1; then
+  echo "Creating a user account: $USERNAME"
+  adduser --disabled-password --gecos '' "$USERNAME"
+  if ! id -u "$USERNAME" >/dev/null 2>&1; then
+    echo "Cannot create user account: $USERNAME"
+    exit 1
+  fi
+fi
+if [ ! -z "$PASSWORD" ]; then
+  echo "${USERNAME}:${PASSWORD}" | chpasswd
+  echo "Password ${USERNAME} account: $PASSWORD"
+fi
+
 ## --- run ---
 exec supervisord -c /etc/supervisord.conf
 
