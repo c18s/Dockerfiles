@@ -19,6 +19,7 @@ chmod +x /bin/systemctl
 mkdir -p /run/user
 mkdir -p /var/run/libvirt/
 touch /var/run/libvirt/libvirt-sock
+chmod +x /var/run/libvirt/libvirt-sock
 
 dpkg -i wok.deb kimchi.deb 2>/dev/null
 apt-get -fy install

@@ -1,16 +1,42 @@
 #!/bin/sh
 ## --- user ---
-if ! id -u "$USERNAME" >/dev/null 2>&1; then
+if [ ! -z "${USERNAME}" ] && [ "${USERNAME}" != "root" ]; then
   echo "Creating a user account: $USERNAME"
   adduser --disabled-password --gecos '' "$USERNAME"
+  usermod -aG libvirt "$USERNAME"
   if ! id -u "$USERNAME" >/dev/null 2>&1; then
     echo "Cannot create user account: $USERNAME"
     exit 1
   fi
 fi
+
+## --- password ---
 if [ ! -z "$PASSWORD" ]; then
   echo "${USERNAME}:${PASSWORD}" | chpasswd
   echo "Password ${USERNAME} account: $PASSWORD"
+fi
+
+# sudoers directory
+if [ ! -z "${USERNAME}" ] && [ "${USERNAME}" != "root" ]; then
+  SUDOERS_DIR=/etc/sudoers.d
+  SUDOERS_FILE=/etc/sudoers
+  SUDOERS_USER_FILE="${SUDOERS_DIR}/${USERNAME}"
+  mkdir -p $SUDOERS_DIR
+
+  # sudoers user file
+  SUDOERS_TEXT="${USERNAME} ALL=(ALL:ALL) NOPASSWD:ALL"
+  if [ "$SUDO_NOPASS" = 'no' ]; then
+  SUDOERS_TEXT="${USERNAME} ALL=(ALL:ALL) ALL"
+  fi
+  echo "$SUDOERS_TEXT" >$SUDOERS_USER_FILE
+  chmod 644 $SUDOERS_USER_FILE
+
+  # update sudoers config
+  echo "#includedir /etc/sudoers.d" >>$SUDOERS_FILE
+  SUDOERS_CONFIG="$(cat $SUDOERS_FILE)"
+  echo "$SUDOERS_CONFIG" | awk '!NF || !x[$0]++' | sed '/./,/^$/!d' >$SUDOERS_FILE
+  grep "includedir" $SUDOERS_FILE
+  cat $SUDOERS_USER_FILE
 fi
 
 ## --- run ---
