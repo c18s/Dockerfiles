@@ -26,7 +26,7 @@ if [ ! -z "${USERNAME}" ] && [ "${USERNAME}" != "root" ]; then
   # sudoers user file
   SUDOERS_TEXT="${USERNAME} ALL=(ALL:ALL) NOPASSWD:ALL"
   if [ "$SUDO_NOPASS" = 'no' ]; then
-  SUDOERS_TEXT="${USERNAME} ALL=(ALL:ALL) ALL"
+    SUDOERS_TEXT="${USERNAME} ALL=(ALL:ALL) ALL"
   fi
   echo "$SUDOERS_TEXT" >$SUDOERS_USER_FILE
   chmod 644 $SUDOERS_USER_FILE

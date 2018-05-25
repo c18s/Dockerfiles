@@ -3,17 +3,8 @@
 ## --- install ---
 apt-get update && apt-get -y install curl sudo supervisor
 
-curl -fsSL https://github.com/kimchi-project/kimchi/releases/download/2.5.0/wok-2.5.0-0.noarch.deb -o wok.deb
-curl -fsSL https://github.com/kimchi-project/kimchi/releases/download/2.5.0/kimchi-2.5.0-0.noarch.deb -o kimchi.deb
-
 ## --- systemctl ---
-rm -rf /bin/systemctl
-cat >/bin/systemctl <<EOL
-#!/bin/sh
-echo "active"
-exit 0
-EOL
-chmod +x /bin/systemctl
+cp -vf /usr/local/bin/systemctl /bin/systemctl
 
 ## --- mockup ---
 mkdir -p /run/user
@@ -21,7 +12,21 @@ mkdir -p /var/run/libvirt/
 touch /var/run/libvirt/libvirt-sock
 chmod +x /var/run/libvirt/libvirt-sock
 
-dpkg -i wok.deb kimchi.deb 2>/dev/null
+set +e
+dpkg -i wok.noarch.deb 2>/dev/null
+set -e
+apt-get -fy install
+set +e
+dpkg -i ginger-base.noarch.deb 2>/dev/null
+set -e
+apt-get -fy install
+set +e
+dpkg -i ginger.noarch.deb 2>/dev/null
+set -e
+apt-get -fy install
+set +e
+dpkg -i kimchi.noarch.deb 2>/dev/null
+set -e
 apt-get -fy install
 
 ## --- config ---

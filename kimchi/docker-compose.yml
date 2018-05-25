@@ -1,10 +1,12 @@
 kimchi:
   image: c18s/kimchi
-  # net: host
-  # volumes:
-  #   - '/etc/libvirt:/etc/libvirt'
-  #   - '/var/lib/libvirt:/var/lib/libvirt'
-  #   - '/var/run/libvirt:/var/run/libvirt'
+  privileged: true
+  net: host
+  volumes:
+    - '/etc/libvirt:/etc/libvirt'
+    - '/var/lib/libvirt:/var/lib/libvirt'
+    - '/var/run/libvirt:/var/run/libvirt'
+    - '/dev/disk/by-id:/dev/disk/by-id:ro'
   environment:
     - USERNAME=system
     - PASSWORD=1234
