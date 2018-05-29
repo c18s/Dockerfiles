@@ -66,8 +66,8 @@ WORKDIR ${WORKDIR}
 
 COPY bin/. /usr/local/bin/
 COPY config/supervisord.conf /etc/supervisord.conf
-COPY ssl /etc/wok
 COPY --from=builder /opt/kimchi/dist .
+COPY ssl /etc/wok
 
 EXPOSE 8001
 
