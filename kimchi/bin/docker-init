@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## --- install ---
-apt-get update && apt-get -y install curl sudo supervisor
+apt-get update && apt-get -y install curl sudo supervisor openvswitch-switch
 
 ## --- systemctl ---
 cp -vf /usr/local/bin/systemctl /bin/systemctl
