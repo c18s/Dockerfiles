@@ -8,6 +8,7 @@ WORKDIR ${WORKDIR}
 ARG GIT_BRANCH=master
 ARG PLUGINS_DIR=${WORKDIR}/wok/src/wok/plugins
 ARG DIST_DIR=${WORKDIR}/dist
+ARG PYTHONDONTWRITEBYTECODE=1
 
 RUN apt-get update && apt-get -y install python-apt sosreport python-configobj python-parted \
   gcc make autoconf automake gettext \
