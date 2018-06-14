@@ -15,7 +15,8 @@ Docker can build images automatically by reading the instructions from a Dockerf
 * [x] [dante](dante)
 * [x] [ipsec](ipsec)
 * [x] [openresty](openresty)
-* [x] [kimchi](kimchi)
+* [x] [ci-docker](ci-docker)
+* [] [kimchi](kimchi)
 
 ## Todo
 
