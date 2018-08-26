@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates \
   && apk add --update -t deps curl \

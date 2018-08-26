@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:latest
 
 ENV WORKDIR /etc/ipsec.d
 WORKDIR /etc/ipsec.d
