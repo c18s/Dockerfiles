@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache ca-certificates \
+RUN apk add --no-cache ca-certificates gettext \
   && apk add --update -t deps curl \
   && curl -fsSL https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
   -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl \
