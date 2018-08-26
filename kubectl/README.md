@@ -18,7 +18,7 @@
 - :octocat: <https://github.com/c18s/Dockerfiles/tree/master/kubectl>
 - :whale: <https://hub.docker.com/r/c18s/kubectl/>
 
-[1]:
+[1]: https://kubernetes.io/docs/reference/kubectl/overview/
 [dockerhub]: https://hub.docker.com/r/c18s/kubectl/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/kubectl/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/kubectl/builds/
