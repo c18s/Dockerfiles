@@ -37,8 +37,8 @@ openresty:
 
 ## Reference
 
-- :octocat: <https://github.com/c18s/Dockerfiles/tree/master/openresty>
-- :whale: <https://hub.docker.com/r/c18s/openresty/>
+- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/openresty>
+- 🐳 <https://hub.docker.com/r/c18s/openresty/>
 
 [1]: https://openresty.org
 [dockerhub]: https://hub.docker.com/r/c18s/openresty/

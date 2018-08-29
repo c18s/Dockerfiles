@@ -9,7 +9,7 @@
 
 ----
 
-Internet Protocol Security [(IPsec)][1] is a network protocol suite that authenticates and encrypts the packets of data sent over a network. 
+Internet Protocol Security [(IPsec)][1] is a network protocol suite that authenticates and encrypts the packets of data sent over a network.
 
 ----
 
@@ -48,8 +48,8 @@ go to url `http://{{SERVER}}:400880`
 
 ## Reference
 
-- :octocat: <https://github.com/c18s/Dockerfiles/tree/master/ipsec>
-- :whale: <https://hub.docker.com/r/c18s/ipsec/>
+- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/ipsec>
+- 🐳 <https://hub.docker.com/r/c18s/ipsec/>
 
 [1]: https://en.wikipedia.org/wiki/IPsec
 [dockerhub]: https://hub.docker.com/r/c18s/ipsec/

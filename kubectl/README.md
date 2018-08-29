@@ -15,8 +15,8 @@
 
 ## Reference
 
-- :octocat: <https://github.com/c18s/Dockerfiles/tree/master/kubectl>
-- :whale: <https://hub.docker.com/r/c18s/kubectl/>
+- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/kubectl>
+- 🐳 <https://hub.docker.com/r/c18s/kubectl/>
 
 [1]: https://kubernetes.io/docs/reference/kubectl/overview/
 [dockerhub]: https://hub.docker.com/r/c18s/kubectl/

@@ -1,12 +1,12 @@
 FROM alpine:latest
 
 # Docker Build Arguments
-ARG RESTY_VERSION="1.13.6.1"
+ARG RESTY_VERSION="1.13.6.2"
 ARG RESTY_LUAROCKS_VERSION="2.4.3"
 ARG RESTY_OPENSSL_VERSION="1.0.2k"
 ARG RESTY_SREGEX_VERSION="0.0.1"
 ARG RESTY_REPLACE_FILTER_VERSION="0.01rc5"
-ARG RESTY_PCRE_VERSION="8.41"
+ARG RESTY_PCRE_VERSION="8.42"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
   --with-file-aio \
@@ -58,6 +58,7 @@ RUN apk add --no-cache --virtual .build-deps \
   readline-dev \
   zlib-dev \
   && apk add --no-cache \
+  tzdata \
   bash \
   build-base \
   curl \
