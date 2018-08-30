@@ -5,7 +5,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/kubectl.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/kubectl.svg)][dockerhub_tag]
 
-![kubectl](https://raw.githubusercontent.com/c18s/Dockerfiles/master/kubectl/logo.png "kubectl Logo")
+![kubectl](https://raw.githubusercontent.com/c18s/Dockerfiles/master/kubectl/logo.png)
 
 ---
 
@@ -15,7 +15,7 @@
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/kubectl>
+- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/kubectl/>
 - 🐳 <https://hub.docker.com/r/c18s/kubectl/>
 
 [1]: https://kubernetes.io/docs/reference/kubectl/overview/

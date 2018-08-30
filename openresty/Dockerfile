@@ -1,6 +1,5 @@
 FROM alpine:latest
 
-# Docker Build Arguments
 ARG RESTY_VERSION="1.13.6.2"
 ARG RESTY_LUAROCKS_VERSION="2.4.3"
 ARG RESTY_OPENSSL_VERSION="1.0.2k"
@@ -40,14 +39,7 @@ ARG RESTY_CONFIG_OPTIONS="\
   --add-module=/usr/src/replace-filter-nginx-module \
   "
 ARG RESTY_CONFIG_OPTIONS_MORE=""
-
-# These are not intended to be user-specified
 ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
-
-# 1) Install apk dependencies
-# 2) Download and untar OpenSSL, PCRE, and OpenResty
-# 3) Build OpenResty
-# 4) Cleanup
 
 RUN apk add --no-cache --virtual .build-deps \
   curl \
@@ -57,21 +49,20 @@ RUN apk add --no-cache --virtual .build-deps \
   perl-dev \
   readline-dev \
   zlib-dev \
-  && apk add --no-cache \
-  tzdata \
+  linux-headers \
   bash \
   build-base \
-  curl \
+  make \
+  perl \
+  unzip \
+  sed \
+  && apk add --no-cache \
+  tzdata \
   gd \
   geoip \
   libgcc \
   libxslt \
-  linux-headers \
-  make \
-  perl \
-  unzip \
   zlib \
-  sed \
   && curl -fSL https://github.com/openresty/sregex/archive/v${RESTY_SREGEX_VERSION}.tar.gz -o sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && tar zxf sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && mkdir -p /usr/src && mv sregex-${RESTY_SREGEX_VERSION} /usr/src/sregex \
@@ -102,7 +93,6 @@ RUN apk add --no-cache --virtual .build-deps \
   openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
   openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
   pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
-  && echo curl -fSL https://github.com/luarocks/luarocks/archive/${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
   && curl -fSL https://github.com/luarocks/luarocks/archive/${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
   && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
   && cd luarocks-${RESTY_LUAROCKS_VERSION} \
@@ -137,4 +127,4 @@ ENV PATH=$PATH:/usr/local/openresty/luajit/bin:/usr/local/openresty/nginx/sbin:/
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
-CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
+CMD ["openresty", "-g", "daemon off;"]

@@ -1,6 +1,6 @@
 # Dockerfiles
 
-![Dockerfiles](logo.png "Dockerfiles Logo")
+![Dockerfiles](logo.png)
 
 Collection of Dockerfiles
 
@@ -12,11 +12,11 @@ Docker can build images automatically by reading the instructions from a Dockerf
 
 ## Successful images
 
-* [x] [dante](dante)
-* [x] [ipsec](ipsec)
-* [x] [openresty](openresty)
-* [x] [ci-docker](ci-docker)
-* [x] [kubectl](kubectl)
+- [x] [dante](dante)
+- [x] [ipsec](ipsec)
+- [x] [openresty](openresty)
+- [x] [ci-docker](ci-docker)
+- [x] [kubectl](kubectl)
 
 ## License
 
