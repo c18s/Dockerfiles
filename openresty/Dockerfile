@@ -6,7 +6,7 @@ ARG RESTY_OPENSSL_VERSION="1.0.2k"
 ARG RESTY_SREGEX_VERSION="0.0.1"
 ARG RESTY_REPLACE_FILTER_VERSION="0.01rc5"
 ARG RESTY_PCRE_VERSION="8.42"
-ARG RESTY_J="1"
+ARG RESTY_J="4"
 ARG RESTY_CONFIG_OPTIONS="\
   --with-file-aio \
   --with-http_addition_module \
@@ -49,20 +49,21 @@ RUN apk add --no-cache --virtual .build-deps \
   perl-dev \
   readline-dev \
   zlib-dev \
-  linux-headers \
-  bash \
-  build-base \
-  make \
-  perl \
-  unzip \
-  sed \
   && apk add --no-cache \
   tzdata \
+  bash \
+  build-base \
+  curl \
   gd \
   geoip \
   libgcc \
   libxslt \
+  linux-headers \
+  make \
+  perl \
+  unzip \
   zlib \
+  sed \
   && curl -fSL https://github.com/openresty/sregex/archive/v${RESTY_SREGEX_VERSION}.tar.gz -o sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && tar zxf sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && mkdir -p /usr/src && mv sregex-${RESTY_SREGEX_VERSION} /usr/src/sregex \
