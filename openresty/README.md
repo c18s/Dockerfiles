@@ -13,8 +13,9 @@
 
 ---
 
-## Add-on
+## Add-ons
 
+- luarocks
 - libsregex
 - replace-filter-nginx-module
 
