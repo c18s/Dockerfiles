@@ -12,11 +12,13 @@ Docker can build images automatically by reading the instructions from a Dockerf
 
 ## Successful images
 
-- [x] [dante](dante)
-- [x] [ipsec](ipsec)
-- [x] [openresty](openresty)
-- [x] [ci-docker](ci-docker)
-- [x] [kubectl](kubectl)
+| Images                 | Status                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| [dante](dante)         | ![Docker Build Status](https://img.shields.io/docker/build/c18s/dante.svg)     |
+| [ipsec](ipsec)         | ![Docker Build Status](https://img.shields.io/docker/build/c18s/ipsec.svg)     |
+| [openresty](openresty) | ![Docker Build Status](https://img.shields.io/docker/build/c18s/openresty.svg) |
+| [ci-docker](ci-docker) | ![Docker Build Status](https://img.shields.io/docker/build/c18s/ci-docker.svg) |
+| [kubectl](kubectl)     | ![Docker Build Status](https://img.shields.io/docker/build/c18s/kubectl.svg)   |
 
 ## License
 
