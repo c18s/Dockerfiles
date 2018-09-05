@@ -1,0 +1,8 @@
+NS = c18s
+REPO = goproxy
+
+build:
+	docker build -t $(NS)/$(REPO) .
+
+shell:
+	docker run --rm --name $(REPO) -it $(NS)/$(REPO) /bin/sh

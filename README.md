@@ -19,6 +19,7 @@ Docker can build images automatically by reading the instructions from a Dockerf
 | [openresty](openresty) | [![Docker Build Status](https://img.shields.io/docker/build/c18s/openresty.svg)][dbs3] |
 | [ci-docker](ci-docker) | [![Docker Build Status](https://img.shields.io/docker/build/c18s/ci-docker.svg)][dbs4] |
 | [kubectl](kubectl)     | [![Docker Build Status](https://img.shields.io/docker/build/c18s/kubectl.svg)][dbs5]   |
+| [goproxy](goproxy)     | [![Docker Build Status](https://img.shields.io/docker/build/c18s/goproxy.svg)][dbs6]   |
 
 ## License
 
@@ -30,3 +31,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [dbs3]: https://hub.docker.com/r/c18s/openresty/builds/
 [dbs4]: https://hub.docker.com/r/c18s/ci-docker/builds/
 [dbs5]: https://hub.docker.com/r/c18s/kubectl/builds/
+[dbs6]: https://hub.docker.com/r/c18s/goproxy/builds/
