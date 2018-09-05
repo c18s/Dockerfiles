@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine
 
 ENV WORKERS 4
 ENV PIDFILE /tmp/sockd.pid

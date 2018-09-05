@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine
 
 RUN apk add --no-cache ca-certificates gettext \
   && apk add --update -t deps curl \
