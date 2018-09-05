@@ -1,4 +1,5 @@
 FROM alpine
 
-RUN apk add --no-cache bash curl
-RUN curl -L https://raw.githubusercontent.com/snail007/goproxy/master/install_auto.sh | bash
+RUN apk add --no-cache --virtual .build-deps curl \
+  && curl -L https://raw.githubusercontent.com/snail007/goproxy/master/install_auto.sh | sh \
+  && apk del .build-deps
