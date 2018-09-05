@@ -8,6 +8,4 @@ RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/te
 
 ADD sockd.conf /etc/sockd.conf
 
-EXPOSE 1080
-
-CMD sockd -f $CFGFILE -p $PIDFILE -N $WORKERS
+CMD ["sockd", "-f", "$CFGFILE", "-p", "$PIDFILE", "-N", "$WORKERS"]
