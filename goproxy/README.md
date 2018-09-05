@@ -13,6 +13,21 @@
 
 ---
 
+## Usage
+
+Run container
+
+docker-compose.yml
+
+```yaml
+dante:
+  image: c18s/goproxy
+  ports:
+    - "1080:1080"
+  command: ["proxy", "socks", "-t", "tcp", "-p", "0.0.0.0:1080"]
+  restart: always
+```
+
 ## Reference
 
 - 🐛 <https://github.com/c18s/Dockerfiles/tree/master/goproxy/>
