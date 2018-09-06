@@ -42,7 +42,6 @@ ARG RESTY_CONFIG_OPTIONS_MORE=""
 ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
 
 RUN apk add --no-cache --virtual .build-deps \
-  curl \
   gd-dev \
   geoip-dev \
   libxslt-dev \
