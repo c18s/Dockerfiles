@@ -9,7 +9,7 @@ ipsec:
   volumes:
     - '/lib/modules:/lib/modules:ro'
   environment:
-    - PSK=4321
+    - PSK=1234
     - USERNAME=dev
     - PASSWORD=1234
     - SERVER=localhost
