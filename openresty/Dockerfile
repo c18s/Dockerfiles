@@ -2,7 +2,7 @@ FROM alpine
 
 ARG RESTY_VERSION="1.13.6.2"
 ARG RESTY_LUAROCKS_VERSION="2.4.4"
-ARG RESTY_OPENSSL_VERSION="1.0.2k"
+ARG RESTY_OPENSSL_VERSION="1.0.2p"
 ARG RESTY_SREGEX_VERSION="0.0.1"
 ARG RESTY_REPLACE_FILTER_VERSION="0.01rc5"
 ARG RESTY_PCRE_VERSION="8.42"
@@ -118,7 +118,8 @@ RUN apk add --no-cache --virtual .build-deps \
   && apk del .build-deps .gettext \
   && mv /tmp/envsubst /usr/local/bin/ \
   && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
-  && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
+  && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log \
+  && ln -sf /usr/local/openresty/nginx /usr/share/nginx
 
 # Add additional binaries into PATH for convenience
 ENV PATH=$PATH:/usr/local/openresty/luajit/bin:/usr/local/openresty/nginx/sbin:/usr/local/openresty/bin
@@ -128,3 +129,7 @@ COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
 CMD ["openresty", "-g", "daemon off;"]
+
+# Use SIGQUIT instead of default SIGTERM to cleanly drain requests
+# See https://github.com/openresty/docker-openresty/blob/master/README.md#tips--pitfalls
+STOPSIGNAL SIGQUIT
