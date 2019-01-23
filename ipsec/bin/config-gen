@@ -5,7 +5,7 @@ TEMPLATE_PATH=${IPSEC_PATH}/config/template
 SERVER_CERT_FILE=${IPSEC_PATH}/certs/server.crt
 
 ## --- environment config ---
-RANDOM_PSK=$(head /dev/urandom | tr -dc a-z0-9 | head -c 4)
+RANDOM_PSK=$(head /dev/urandom | tr -dc a-z0-9 | head -c 6)
 PSK=${PSK:-$RANDOM_PSK}
 PSK_B64=$(echo -n "${PSK}" | base64)
 SERVER=${SERVER:-localhost}
@@ -15,14 +15,16 @@ L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
 L2TP_PRE_NETWORK=$(echo ${L2TP_NETWORK} | awk -F '.' '{print $1"."$2"."$3}')
 DNS_SERVER1=$(echo ${DNS_SERVER} | awk -F ',' '{print $1}')
 DNS_SERVER2=$(echo ${DNS_SERVER} | awk -F ',' '{print $2}')
-DNS_SERVER1=${DNS_SERVER1:-8.8.4.4}
-DNS_SERVER2=${DNS_SERVER2:-1.1.1.1}
+DNS_SERVER1=${DNS_SERVER1:-1.0.0.1}
+DNS_SERVER2=${DNS_SERVER2:-8.8.4.4}
 WEB_PORT=${WEB_PORT:-40080}
 RADIUS_SECRET=${RADIUS_SECRET:-secret}
 RADIUS_ADDRESS=${RADIUS_ADDRESS:-localhost}
 ENABLE_RADIUS=1
 RIGHT_AUTH=eap-radius
 RIGHT_AUTH2=xauth-radius
+USERNAME=${USERNAME}
+PASSWORD=${PASSWORD}
 LEFT_ID=$(openssl x509 -in ${SERVER_CERT_FILE} -noout -subject 2>/dev/null | grep -o "CN=.*" | cut -c 4- | sed s/*.//)
 
 ## --- export ---

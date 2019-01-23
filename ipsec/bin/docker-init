@@ -3,6 +3,7 @@ set -e
 
 ## --- packages ---
 apk add --no-cache \
+  tzdata \
   ppp \
   strongswan \
   xl2tpd \

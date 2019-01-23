@@ -1,22 +1,22 @@
 #!/bin/sh
 ## --- path ---
 IPSEC_PATH=/etc/ipsec.d
-CERTS_CONFIG_PATH=${IPSEC_PATH}/config/certs
+CERTS_PATH=${IPSEC_PATH}/config/certs
 CA_KEY_FILE=${IPSEC_PATH}/private/ca.key
 CA_CERT_FILE=${IPSEC_PATH}/cacerts/ca.crt
 SERVER_KEY_FILE=${IPSEC_PATH}/private/server.key
 SERVER_CERT_FILE=${IPSEC_PATH}/certs/server.crt
 
 ## --- check certificate ---
-mkdir -p ${CERTS_CONFIG_PATH}
-if [ -f ${CERTS_CONFIG_PATH}/ca.crt ] &&
-  [ -f ${CERTS_CONFIG_PATH}/server.key ] &&
-  [ -f ${CERTS_CONFIG_PATH}/server.crt ]; then
-  cp -rf ${CERTS_CONFIG_PATH}/ca.crt ${CA_CERT_FILE}
-  cp -rf ${CERTS_CONFIG_PATH}/server.key ${SERVER_KEY_FILE}
-  cp -rf ${CERTS_CONFIG_PATH}/server.crt ${SERVER_CERT_FILE}
+mkdir -p ${CERTS_PATH}
+if [ -f ${CERTS_PATH}/ca.crt ] &&
+  [ -f ${CERTS_PATH}/server.key ] &&
+  [ -f ${CERTS_PATH}/server.crt ]; then
+  cp -rf ${CERTS_PATH}/ca.crt ${CA_CERT_FILE}
+  cp -rf ${CERTS_PATH}/server.key ${SERVER_KEY_FILE}
+  cp -rf ${CERTS_PATH}/server.crt ${SERVER_CERT_FILE}
   echo "Your certificate is ready."
-  exit 0
+  exit
 fi
 
 ## --- Certificate generator ---
@@ -57,5 +57,10 @@ LIFETIME=${LIFETIME:-3650}
 ## --- copy ca.crt to client config path ---
 mkdir -p ${IPSEC_PATH}/config/client
 ln -sf ${CA_CERT_FILE} ${IPSEC_PATH}/config/client/ca.crt
+
+## --- copy certs ---
+cp -rf ${CA_CERT_FILE} ${CERTS_PATH}/ca.crt
+cp -rf ${SERVER_KEY_FILE} ${CERTS_PATH}/server.key
+cp -rf ${SERVER_CERT_FILE} ${CERTS_PATH}/server.crt
 
 ## EOF

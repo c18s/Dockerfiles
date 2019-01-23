@@ -2,6 +2,6 @@
 *.png
 .git
 .gitignore
+certs
 Makefile
 docker-compose.yml
-certs
