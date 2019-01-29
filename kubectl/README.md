@@ -15,10 +15,11 @@
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/kubectl/>
-- 🐳 <https://hub.docker.com/r/c18s/kubectl/>
+- 🐛 [GitHub][github]
+- 🐳 [Docker Hub][dockerhub]
 
 [1]: https://kubernetes.io/docs/reference/kubectl/overview/
 [dockerhub]: https://hub.docker.com/r/c18s/kubectl/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/kubectl/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/kubectl/builds/
+[github]: https://github.com/c18s/Dockerfiles/tree/master/kubectl/

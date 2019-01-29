@@ -30,9 +30,9 @@ docker-compose.yml
 dante:
   image: c18s/dante
   ports:
-    - "1080:1080"
+    - '1080:1080'
   volumes:
-    - "./sockd.conf:/etc/sockd.conf"
+    - './sockd.conf:/etc/sockd.conf'
   environment:
     - WORKERS=4
   restart: always
@@ -40,10 +40,11 @@ dante:
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/dante/>
-- 🐳 <https://hub.docker.com/r/c18s/dante/>
+- 🐛 [GitHub][github]
+- 🐳 [Docker Hub][dockerhub]
 
 [1]: http://www.inet.no/dante/index.html
 [dockerhub]: https://hub.docker.com/r/c18s/dante/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/dante/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/dante/builds/
+[github]: https://github.com/c18s/Dockerfiles/tree/master/dante/

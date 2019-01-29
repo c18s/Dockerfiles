@@ -23,17 +23,18 @@ docker-compose.yml
 dante:
   image: c18s/goproxy
   ports:
-    - "1080:1080"
-  command: ["proxy", "socks", "-t", "tcp", "-p", "0.0.0.0:1080"]
+    - '1080:1080'
+  command: ['proxy', 'socks', '-t', 'tcp', '-p', '0.0.0.0:1080']
   restart: always
 ```
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/goproxy/>
-- 🐳 <https://hub.docker.com/r/c18s/goproxy/>
+- 🐛 [GitHub][github]
+- 🐳 [Docker Hub][dockerhub]
 
 [1]: https://github.com/snail007/goproxy
 [dockerhub]: https://hub.docker.com/r/c18s/goproxy/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/goproxy/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/goproxy/builds/
+[github]: https://github.com/c18s/Dockerfiles/tree/master/goproxy/

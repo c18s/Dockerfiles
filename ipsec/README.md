@@ -49,10 +49,11 @@ go to url `http://$SERVER_IP:40080`
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/ipsec/>
-- 🐳 <https://hub.docker.com/r/c18s/ipsec/>
+- 🐛 [GitHub][github]
+- 🐳 [Docker Hub][dockerhub]
 
 [1]: https://en.wikipedia.org/wiki/IPsec/
 [dockerhub]: https://hub.docker.com/r/c18s/ipsec/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/ipsec/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/ipsec/builds/
+[github]: https://github.com/c18s/Dockerfiles/tree/master/ipsec/

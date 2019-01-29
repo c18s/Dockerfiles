@@ -33,17 +33,18 @@ docker-compose.yml
 openresty:
   image: c18s/openresty
   ports:
-    - "80:80"
-    - "443:443"
+    - '80:80'
+    - '443:443'
   restart: always
 ```
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/openresty/>
-- 🐳 <https://hub.docker.com/r/c18s/openresty/>
+- 🐛 [GitHub][github]
+- 🐳 [Docker Hub][dockerhub]
 
 [1]: https://openresty.org/
 [dockerhub]: https://hub.docker.com/r/c18s/openresty/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/openresty/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/openresty/builds/
+[github]: https://github.com/c18s/Dockerfiles/tree/master/openresty/

@@ -15,9 +15,10 @@ CI-Docker is a Continuous Integration Tools contains Docker, Xz, Make, Git.
 
 ## Reference
 
-- 🐛 <https://github.com/c18s/Dockerfiles/tree/master/ci-docker/>
-- 🐳 <https://hub.docker.com/r/c18s/ci-docker/>
+- 🐛 [GitHub][github]
+- 🐳 [Docker Hub][dockerhub]
 
 [dockerhub]: https://hub.docker.com/r/c18s/ci-docker/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/ci-docker/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/ci-docker/builds/
+[github]: https://github.com/c18s/Dockerfiles/tree/master/ci-docker/
