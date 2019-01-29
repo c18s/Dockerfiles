@@ -33,7 +33,8 @@ ipsec:
     - '0.0.0.0:1701:1701/udp'
     - '0.0.0.0:40080:40080'
   volumes:
-    - '/lib/modules:/lib/modules'
+    - './certs:/etc/ipsec.d/config/certs'
+    - '/lib/modules:/lib/modules:ro'
   environment:
     - PSK=1234
     - USERNAME=dev
