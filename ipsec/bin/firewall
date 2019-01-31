@@ -1,6 +1,7 @@
 #!/bin/sh
 ## --- environment config ---
-INET=${INET:-eth0}
+INET=$(ip -4 route get 1 | awk '{print $5;exit}')
+[ -z "${INET}" ] && INET=${INET:-eth0}
 IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
 L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
 STATIC_IP=$(ip -4 route get 1 | awk '{print $NF;exit}')
