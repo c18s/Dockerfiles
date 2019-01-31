@@ -3,8 +3,10 @@ charon {
   user = root
   load_modular = yes
   send_vendor_id = yes
-  duplicheck.enable = yes
   plugins {
+    duplicheck {
+      enable = yes
+    }
     include strongswan.d/charon/*.conf
     {% if ENABLE_RADIUS is defined %}
     eap-radius {
@@ -12,7 +14,7 @@ charon {
       accounting_interval = 60
       servers {
         radiusServer {
-          sockets = 50
+          sockets = 100
           nas_identifier = ipsec
           secret = {{ RADIUS_SECRET }}
           address = {{ RADIUS_ADDRESS }}
