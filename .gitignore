@@ -1,2 +1,3 @@
-/archive
 .DS_*
+archive
+docker-compose-*
