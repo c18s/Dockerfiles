@@ -22,5 +22,4 @@ ADD config ${WORKDIR}/config
 RUN ln -sfv /etc/ipsec.conf /etc/ipsec.d/ipsec.conf \
   && ln -sfv /etc/ipsec.secrets /etc/ipsec.d/ipsec.secrets \
   && ln -sfv /etc/ppp/chap-secrets /etc/ipsec.d/chap-secrets
-
 CMD ["ipsec-server"]

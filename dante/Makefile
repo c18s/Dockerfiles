@@ -3,6 +3,7 @@ REPO = dante
 
 build:
 	docker build -t $(NS)/$(REPO) .
+	docker images --filter 'reference=$(NS)/$(REPO)'
 
 shell:
 	docker run --rm --name $(REPO) -it -p 1080:1080 $(NS)/$(REPO) /bin/sh

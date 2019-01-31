@@ -12,6 +12,8 @@ charon {
       accounting_interval = 60
       servers {
         radiusServer {
+          sockets = 50
+          nas_identifier = ipsec
           secret = {{ RADIUS_SECRET }}
           address = {{ RADIUS_ADDRESS }}
         }

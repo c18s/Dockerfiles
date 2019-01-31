@@ -1,7 +1,5 @@
 *.md
 *.png
 .git*
-certs
 Makefile
 Dockerfile
-docker-compose*

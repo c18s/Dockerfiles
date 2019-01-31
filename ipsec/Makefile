@@ -3,6 +3,7 @@ REPO = ipsec
 
 build:
 	docker build -t $(NS)/$(REPO) .
+	docker images --filter 'reference=$(NS)/$(REPO)'
 
 shell:
 	docker run \
