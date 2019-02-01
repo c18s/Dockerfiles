@@ -1,0 +1,27 @@
+#!/bin/sh
+## --- config ---
+TEMPLATE_DIR=/etc/raddb/template
+rm -f /etc/raddb/sites-enabled/inner-tunnel
+envtpl ${TEMPLATE_DIR}/users.tpl -o /etc/raddb/users
+envtpl ${TEMPLATE_DIR}/exec.tpl -o /etc/raddb/mods-enabled/exec
+envtpl ${TEMPLATE_DIR}/eap.tpl -o /etc/raddb/mods-enabled/eap
+envtpl ${TEMPLATE_DIR}/clients.conf.tpl -o /etc/raddb/clients.conf
+envtpl ${TEMPLATE_DIR}/default.tpl -o /etc/raddb/sites-enabled/default
+envtpl ${TEMPLATE_DIR}/access_reject.tpl -o /etc/raddb/mods-config/attr_filter/access_reject
+
+## --- disable proxy ---
+sed -i 's/^proxy_requests.*$/proxy_requests = no/' /etc/raddb/radiusd.conf
+sed -i 's/^\$INCLUDE proxy.conf.*$/#\$INCLUDE proxy.conf/' /etc/raddb/radiusd.conf
+sed -i 's/^\s*allow_vulnerable_openssl.*$/allow_vulnerable_openssl = yes/' /etc/raddb/radiusd.conf
+
+## --- logs ---
+chown -R radius:radius /var/log/radius
+
+## --- run ---
+if [ "$DEBUG" = "1" ]; then
+  exec radiusd -X
+else
+  exec radiusd -l stdout -f
+fi
+
+## EOF

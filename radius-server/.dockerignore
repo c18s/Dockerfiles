@@ -1,0 +1,7 @@
+*.md
+*.png
+.git*
+logs
+Makefile
+Dockerfile
+docker-compose*

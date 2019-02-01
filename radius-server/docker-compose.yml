@@ -1,0 +1,10 @@
+radius-server:
+  image: c18s/radius-server
+  net: host
+  volumes:
+    - './logs:/var/log/radius'
+  environment:
+    - DEBUG=1
+    - IPADDR=127.0.0.1
+    - RADIUS_SECRET=1234
+  restart: always

@@ -1,0 +1,9 @@
+#!/bin/sh
+USERNAME="$(echo ${USER_NAME} | sed 's/"//g')"
+if [ "${USERNAME}" == 'test' ]; then
+  echo "Reply-Message = 'Username: ${USERNAME}',"
+  echo "User-Password = '1234'"
+  exit 0
+fi
+echo "Reply-Message = 'Username: ${USERNAME}, Authorization failed'"
+exit 1
