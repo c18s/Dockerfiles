@@ -1,0 +1,36 @@
+#!/bin/sh
+## --- environment config ---
+INET=$(ip -4 route get 1 | awk '{print $5;exit}')
+[ -z "${INET}" ] && INET=${INET:-eth0}
+PPTP_NETWORK=${PPTP_NETWORK:-10.255.3.0/24}
+STATIC_IP=$(ip -4 route get 1 | awk '{print $NF;exit}')
+[ -z "${STATIC_IP}" ] && STATIC_IP=$(ifconfig ${INET} | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+
+firewall() {
+  unset N
+  CHAIN_CMD=$1
+  [ "${CHAIN_CMD}" = "-D" ] && N=""
+  ## --- input ---
+  iptables ${CHAIN_CMD:--A} INPUT -p gre -j ACCEPT
+  ## --- forward ---
+  iptables ${CHAIN_CMD:--A} FORWARD -s ${PPTP_NETWORK} -o ${INET} -j ACCEPT
+  iptables ${CHAIN_CMD:--A} FORWARD -s ${PPTP_NETWORK} -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j TCPMSS --set-mss 1356
+  ## --- nat postrouting ---
+  iptables -t nat ${CHAIN_CMD:--A} POSTROUTING -s ${PPTP_NETWORK} -o ${INET} -j SNAT --to-source ${STATIC_IP}
+}
+
+case "$1" in
+"delete")
+  echo "Delete firewall"
+  firewall -D 2>/dev/null
+  sleep 1
+  ;;
+*)
+  echo "Reinstall firewall"
+  firewall -D 2>/dev/null
+  sleep 1
+  firewall -I
+  ;;
+esac
+
+## EOF

@@ -17,7 +17,7 @@ mapfile         /etc/radiusclient/port-id-map
 default_realm
 radius_timeout  10
 radius_retries  3
-nas_identifier  l2tp
+nas_identifier  pptp
 
 ## --- local ---
 login_local     /bin/login

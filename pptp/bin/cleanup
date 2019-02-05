@@ -1,0 +1,13 @@
+#!/bin/sh
+cleanup() {
+  echo "Cleaning stuff up..."
+  /usr/local/bin/firewall delete
+  exit
+}
+
+trap cleanup INT TERM
+echo 'Wait for exit signal.'
+read var
+cleanup
+
+## EOF

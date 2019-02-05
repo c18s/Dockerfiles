@@ -1,17 +1,23 @@
-## --- xl2tpd option ---
-name l2tpd
+## --- pptpd option ---
+name pptpd
 
 ## --- encrypt ---
 refuse-eap
 refuse-pap
 require-chap
 require-mschap
+require-mppe-128
 require-mschap-v2
 
 ## --- miscellaneous ---
 auth
 noccp
 hide-password
+lock
+nobsdcomp
+novj
+novjccomp
+nologfd
 
 ## --- network ---
 proxyarp
@@ -28,7 +34,7 @@ ms-dns {{ DNS_SERVER2 }}
 ## --- radius ---
 plugin radius.so
 plugin radattr.so
-avpair NAS-Port-Id=1701
+avpair NAS-Port-Id=1723
 radius-config-file /etc/radiusclient/radiusclient.conf
 {% endif %}
 

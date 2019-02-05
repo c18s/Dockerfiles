@@ -1,0 +1,55 @@
+#!/bin/sh
+## --- path ---
+TEMPLATE_PATH=/etc/ppp/config/template
+
+## --- environment config ---
+PPTP_NETWORK=${PPTP_NETWORK:-10.255.3.0/24}
+PPTP_PRE_NETWORK=$(echo ${PPTP_NETWORK} | awk -F '.' '{print $1"."$2"."$3}')
+DNS_SERVER1=$(echo ${DNS_SERVER} | awk -F ',' '{print $1}')
+DNS_SERVER2=$(echo ${DNS_SERVER} | awk -F ',' '{print $2}')
+DNS_SERVER1=${DNS_SERVER1:-1.0.0.1}
+DNS_SERVER2=${DNS_SERVER2:-8.8.4.4}
+RADIUS_SECRET=${RADIUS_SECRET:-secret}
+RADIUS_ADDRESS=${RADIUS_ADDRESS:-localhost}
+ENABLE_RADIUS=1
+USERNAME=${USERNAME}
+PASSWORD=${PASSWORD}
+
+## --- export ---
+export USERNAME PASSWORD PPTP_NETWORK PPTP_PRE_NETWORK \
+  DNS_SERVER1 DNS_SERVER2 ENABLE_RADIUS RADIUS_SECRET RADIUS_ADDRESS
+
+## --- print ---
+echo "---"
+echo "PPTP_NETWORK: ${PPTP_NETWORK}"
+echo "DNS_SERVER1: ${DNS_SERVER1}"
+echo "DNS_SERVER2: ${DNS_SERVER2}"
+if [ ! -z "${USERNAME}" ] && [ ! -z "${PASSWORD}" ]; then
+  unset ENABLE_RADIUS
+  echo "USERNAME: ${USERNAME}"
+  echo "PASSWORD: ${PASSWORD}"
+else
+  echo "RADIUS_SECRET: ${RADIUS_SECRET}"
+  echo "RADIUS_ADDRESS: ${RADIUS_ADDRESS}"
+fi
+echo "---"
+
+## --- chap-secrets ---
+envtpl --keep-template -o /etc/ppp/chap-secrets ${TEMPLATE_PATH}/chap-secrets.tpl
+
+## --- pptpd.conf ---
+envtpl --keep-template -o /etc/pptpd.conf ${TEMPLATE_PATH}/pptpd.conf.tpl
+
+## --- options.pptpd ---
+envtpl --keep-template -o /etc/ppp/options.pptpd ${TEMPLATE_PATH}/options.pptpd.tpl
+
+## --- radiusclient.servers ---
+envtpl --keep-template -o /etc/radiusclient/servers ${TEMPLATE_PATH}/radiusclient.servers.tpl
+
+## --- radiusclient.conf ---
+envtpl --keep-template -o /etc/radiusclient/radiusclient.conf ${TEMPLATE_PATH}/radiusclient.conf.tpl
+
+## --- supervisord ---
+ln -sf /etc/ppp/config/supervisord.conf /etc/supervisord.conf
+
+## EOF

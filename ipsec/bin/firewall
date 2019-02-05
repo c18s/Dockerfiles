@@ -29,6 +29,7 @@ firewall() {
   ## --- nat postrouting ---
   iptables -t nat ${CHAIN_CMD:--I} POSTROUTING ${N-1} -s ${IKE_NETWORK} -o ${INET} -j SNAT --to-source ${STATIC_IP}
   iptables -t nat ${CHAIN_CMD:--I} POSTROUTING ${N-2} -s ${L2TP_NETWORK} -o ${INET} -j SNAT --to-source ${STATIC_IP}
+  iptables -t nat ${CHAIN_CMD:--I} POSTROUTING ${N-3} -o ppp+ -j MASQUERADE
 }
 
 case "$1" in

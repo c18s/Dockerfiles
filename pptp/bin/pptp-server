@@ -1,0 +1,14 @@
+#!/bin/sh
+## --- config ---
+/usr/local/bin/config-gen
+
+## --- firewall ---
+/usr/local/bin/firewall
+
+## --- sysctl ---
+sysctl -p /etc/ppp/config/sysctl.conf
+
+## --- run ---
+exec supervisord -c /etc/supervisord.conf
+
+## EOF

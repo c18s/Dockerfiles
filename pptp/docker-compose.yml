@@ -1,0 +1,11 @@
+pptp:
+  image: c18s/pptp
+  privileged: yes
+  ports:
+    - '0.0.0.0:1723:1723'
+  volumes:
+    - '/lib/modules:/lib/modules:ro'
+  environment:
+    - USERNAME=dev
+    - PASSWORD=1234
+  restart: always
