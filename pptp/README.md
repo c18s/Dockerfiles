@@ -42,7 +42,7 @@ pptp:
 - 🐛 [GitHub][github]
 - 🐳 [Docker Hub][dockerhub]
 
-[1]: https://wiki.archlinux.org/index.php/PPTP_server/
+[1]: https://wiki.archlinux.org/index.php/PPTP_server
 [dockerhub]: https://hub.docker.com/r/c18s/pptp/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/pptp/tags/
 [dockerhub_build]: https://hub.docker.com/r/c18s/pptp/builds/
