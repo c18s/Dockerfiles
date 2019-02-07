@@ -1,4 +1,8 @@
 #!/bin/sh
+if [ "$DISABLE_FIREWALL" = "1" ]; then
+  echo "Firewall is disabled"
+  exit 0
+fi
 ## --- environment config ---
 INET=$(ip -4 route get 1 | awk '{print $5;exit}')
 [ -z "${INET}" ] && INET=${INET:-eth0}
@@ -12,14 +16,14 @@ firewall() {
   CHAIN_CMD=$1
   [ "${CHAIN_CMD}" = "-D" ] && N=""
   ## --- input ---
-  iptables ${CHAIN_CMD:--I} INPUT ${N-1} -m conntrack --ctstate INVALID -j DROP
-  iptables ${CHAIN_CMD:--I} INPUT ${N-2} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} INPUT ${N-1} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} INPUT ${N-2} -m conntrack --ctstate INVALID -j DROP
   iptables ${CHAIN_CMD:--I} INPUT ${N-3} -p udp -m multiport --dports 500,4500 -j ACCEPT
   iptables ${CHAIN_CMD:--I} INPUT ${N-4} -p udp -m udp --dport 1701 -m policy --dir in --pol ipsec -j ACCEPT
   iptables ${CHAIN_CMD:--I} INPUT ${N-5} -p udp -m udp --dport 1701 -j DROP
   ## --- forward ---
-  iptables ${CHAIN_CMD:--I} FORWARD ${N-1} -m conntrack --ctstate INVALID -j DROP
-  iptables ${CHAIN_CMD:--I} FORWARD ${N-2} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-1} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables ${CHAIN_CMD:--I} FORWARD ${N-2} -m conntrack --ctstate INVALID -j DROP
   iptables ${CHAIN_CMD:--I} FORWARD ${N-3} -s ${IKE_NETWORK} -o ${INET} -j ACCEPT
   iptables ${CHAIN_CMD:--I} FORWARD ${N-4} -i ppp+ -o ${INET} -j ACCEPT
   iptables ${CHAIN_CMD:--I} FORWARD ${N-5} -d ${IKE_NETWORK} -i ${INET} -j ACCEPT
