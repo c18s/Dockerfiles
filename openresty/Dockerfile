@@ -1,7 +1,7 @@
-FROM alpine
-ARG RESTY_VERSION="1.13.6.2"
-ARG RESTY_LUAROCKS_VERSION="2.4.4"
-ARG RESTY_OPENSSL_VERSION="1.0.2p"
+FROM alpine:edge
+ARG RESTY_VERSION="1.15.8.1"
+ARG RESTY_LUAROCKS_VERSION="3.1.3"
+ARG RESTY_OPENSSL_VERSION="1.1.1c"
 ARG RESTY_SREGEX_VERSION="0.0.1"
 ARG RESTY_REPLACE_FILTER_VERSION="0.01rc5"
 ARG RESTY_PCRE_VERSION="8.42"
@@ -116,6 +116,7 @@ RUN apk add --no-cache --virtual .build-deps \
   && apk add --no-cache --virtual $runDeps \
   && apk del .build-deps .gettext \
   && mv /tmp/envsubst /usr/local/bin/ \
+  && apk add --no-cache openssl \
   && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
   && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log \
   && ln -sf /usr/local/openresty/nginx /usr/share/nginx

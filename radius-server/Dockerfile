@@ -1,5 +1,5 @@
 FROM subfuzion/envtpl as envtpl
-FROM alpine as baseImage
+FROM alpine:edge as baseImage
 ENV TZ=Asia/Bangkok
 RUN apk add --no-cache tzdata freeradius freeradius-radclient freeradius-eap
 COPY --from=envtpl /bin/envtpl /usr/local/bin/envtpl

@@ -1,4 +1,4 @@
-FROM alpine AS baseImage
+FROM alpine:edge AS baseImage
 ENV TZ=Asia/Bangkok
 RUN apk add --no-cache \
   tzdata \

@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:edge
 ENV WORKERS 4
 ENV PIDFILE /tmp/sockd.pid
 ENV CFGFILE /etc/sockd.conf
