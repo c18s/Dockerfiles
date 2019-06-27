@@ -5,7 +5,7 @@ ARG RESTY_OPENSSL_VERSION="1.1.1c"
 ARG RESTY_SREGEX_VERSION="0.0.1"
 ARG RESTY_REPLACE_FILTER_VERSION="0.01rc5"
 ARG RESTY_PCRE_VERSION="8.42"
-ARG RESTY_J="4"
+ARG RESTY_J="10"
 ARG RESTY_CONFIG_OPTIONS="\
   --with-file-aio \
   --with-http_addition_module \
@@ -62,6 +62,7 @@ RUN apk add --no-cache --virtual .build-deps \
   unzip \
   zlib \
   sed \
+  openssl \
   && curl -fSL https://github.com/openresty/sregex/archive/v${RESTY_SREGEX_VERSION}.tar.gz -o sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && tar zxf sregex-v${RESTY_SREGEX_VERSION}.tar.gz \
   && mkdir -p /usr/src && mv sregex-${RESTY_SREGEX_VERSION} /usr/src/sregex \
@@ -83,6 +84,13 @@ RUN apk add --no-cache --virtual .build-deps \
   && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
   && tar xzf openresty-${RESTY_VERSION}.tar.gz \
   && cd /tmp/openresty-${RESTY_VERSION} \
+  && if [[ "1.1.1" == $(echo -e "${RESTY_OPENSSL_VERSION}\n1.1.1" | sort -V | head -n1) ]] ; then \
+  echo 'patching Nginx for OpenSSL 1.1.1' \
+  && cd bundle/nginx-1.15.8 \
+  && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.15.8-ssl_cert_cb_yield.patch | patch -p1 \
+  && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.15.8-ssl_sess_cb_yield.patch | patch -p1 \
+  && cd ../.. ; \
+  fi \
   && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} \
   && make -j${RESTY_J} \
   && make -j${RESTY_J} install \
@@ -116,7 +124,6 @@ RUN apk add --no-cache --virtual .build-deps \
   && apk add --no-cache --virtual $runDeps \
   && apk del .build-deps .gettext \
   && mv /tmp/envsubst /usr/local/bin/ \
-  && apk add --no-cache openssl \
   && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
   && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log \
   && ln -sf /usr/local/openresty/nginx /usr/share/nginx
