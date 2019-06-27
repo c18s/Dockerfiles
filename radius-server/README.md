@@ -1,6 +1,6 @@
 # RADIUS Server
 
-[![Docker Build Status](https://img.shields.io/docker/build/c18s/radius-server.svg)][dockerhub_build]
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/c18s/radius-server.svg)][dockerhub_build]
 [![Docker Automated build](https://img.shields.io/docker/automated/c18s/radius-server.svg)][dockerhub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/radius-server.svg)][dockerhub]
 [![Docker ImageSize](https://img.shields.io/microbadger/image-size/c18s/radius-server.svg)][dockerhub_tag]

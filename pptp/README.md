@@ -1,7 +1,7 @@
 # PPTP VPN
 
-[![Docker Build Status](https://img.shields.io/docker/build/c18s/pptp.svg)][dockerhub_build]
-[![Docker Automated build](https://img.shields.io/docker/automated/c18s/pptp.svg)][dockerhub]
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/c18s/pptp.svg)][dockerhub_build]
+[![Docker Automated build](https://img.shields.io/cloud/docker/automated/c18s/pptp.svg)][dockerhub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/pptp.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/pptp.svg)][dockerhub_tag]
 
