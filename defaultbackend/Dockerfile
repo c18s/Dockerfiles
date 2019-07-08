@@ -1,7 +1,7 @@
 FROM golang:alpine as builder
 WORKDIR /app
 RUN apk add -u git
-COPY *.go /app/
+COPY . /app/
 RUN go get -v -d
 RUN CGO_ENABLED=0 GOOS=linux go build -o /srv/start
 
