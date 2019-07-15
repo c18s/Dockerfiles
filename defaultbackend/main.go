@@ -8,12 +8,17 @@ import (
 	"github.com/labstack/echo"
 )
 
+func customHTTPErrorHandler(err error, c echo.Context) {
+	c.Redirect(302, "/")
+}
+
 func main() {
 	content, err := ioutil.ReadFile("static/index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
 	e := echo.New()
+	e.HTTPErrorHandler = customHTTPErrorHandler
 	e.GET("/healthz", func(c echo.Context) error {
 		return c.String(http.StatusOK, "ok")
 	})
