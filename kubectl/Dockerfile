@@ -1,9 +1,11 @@
 FROM alpine:edge
-RUN apk add --no-cache ca-certificates gettext \
-  && apk add --update -t deps curl \
-  && curl -fSL https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
-  -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl \
-  && apk del --purge deps \
-  && rm -rf /var/cache/apk/* \
-  && kubectl version --client
-
+ARG RELEASE_URL=https://storage.googleapis.com/kubernetes-release/release
+ARG STABLE_VERSION_URL=${RELEASE_URL}/stable.txt
+ARG KUBECTL_PATH=/usr/local/bin/kubectl
+WORKDIR /root
+RUN apk add --no-cache ca-certificates curl gettext
+RUN curl -fSL ${RELEASE_URL}/$(curl -s ${STABLE_VERSION_URL})/bin/linux/amd64/kubectl \
+  -o ${KUBECTL_PATH} \
+  && chmod +x ${KUBECTL_PATH} \
+  && kubectl version --client -o yaml
+COPY bin/. /usr/local/bin/

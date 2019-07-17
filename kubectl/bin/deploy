@@ -1,0 +1,26 @@
+#!/bin/sh
+GENERATED_PATH=./.deployment/generated
+TEMPLATE_PATH=${TEMPLATE_PATH:-./.deployment/templates}
+
+if [ ! -d ${TEMPLATE_PATH} ]; then
+  echo "\`${TEMPLATE_PATH}\` directory not found!"
+  exit 1
+fi
+
+if [[ -z "${CONTAINER_IMAGE}" || -z "${PROVIDER}" ]]; then
+  echo 'Invalid `CONTAINER_IMAGE` or `PROVIDER` environment'
+  exit 1
+fi
+
+mkdir -p ${GENERATED_PATH}
+rm -rf ${GENERATED_PATH}/*
+
+for file in ${TEMPLATE_PATH}/*.${PROVIDER}.yml ${TEMPLATE_PATH}/*.${PROVIDER}.yaml; do
+  if [ -f ${file} ]; then
+    GENERATED_FILE=${GENERATED_PATH}/$(basename $file)
+    echo "Generated file: ${GENERATED_FILE}"
+    envsubst <$file >${GENERATED_FILE}
+  fi
+done
+
+kubectl apply -f ${GENERATED_PATH}/

@@ -1,0 +1,18 @@
+#!/bin/sh
+KUBE_CONFIG_DIR=~/.kube
+KUBE_CONFIG_FILE=${KUBE_CONFIG_DIR}/config
+
+mkdir -p ${KUBE_CONFIG_DIR}
+
+if [[ ! -z "${DO_TOKEN}" && ! -z "${CLUSTER_ID}" ]]; then
+  echo 'Config with `DO_TOKEN` and `CLUSTER_ID`'
+  curl -fsSL --request GET \
+    --url https://api.digitalocean.com/v2/kubernetes/clusters/${CLUSTER_ID}/kubeconfig \
+    --header "authorization: Bearer ${DO_TOKEN}" >${KUBE_CONFIG_FILE}
+elif [ ! -z "${BASE64_KUBE_CONFIG}" ]; then
+  echo 'Config with `BASE64_KUBE_CONFIG`'
+  echo ${BASE64_KUBE_CONFIG} | base64 -d >${KUBE_CONFIG_FILE}
+else
+  echo 'Invalid `DO_TOKEN` and `CLUSTER_ID` or `BASE64_KUBE_CONFIG`'
+  exit 1
+fi
