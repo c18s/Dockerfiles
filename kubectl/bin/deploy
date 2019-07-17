@@ -7,8 +7,8 @@ if [ ! -d ${TEMPLATE_PATH} ]; then
   exit 1
 fi
 
-if [[ -z "${CONTAINER_IMAGE}" || -z "${PROVIDER}" ]]; then
-  echo 'Invalid `CONTAINER_IMAGE` or `PROVIDER` environment'
+if [[ -z "${DOCKER_IMAGE}" || -z "${PROVIDER}" ]]; then
+  echo 'Invalid `DOCKER_IMAGE` or `PROVIDER` environment'
   exit 1
 fi
 
