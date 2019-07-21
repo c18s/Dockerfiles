@@ -5,7 +5,7 @@ ARG RESTY_OPENSSL_VERSION="1.1.1c"
 ARG RESTY_SREGEX_VERSION="0.0.1"
 ARG RESTY_REPLACE_FILTER_VERSION="0.01rc5"
 ARG RESTY_PCRE_VERSION="8.42"
-ARG RESTY_J="10"
+ARG RESTY_J="4"
 ARG RESTY_CONFIG_OPTIONS="\
   --with-file-aio \
   --with-http_addition_module \
@@ -26,7 +26,6 @@ ARG RESTY_CONFIG_OPTIONS="\
   --with-http_sub_module \
   --with-http_v2_module \
   --with-http_xslt_module=dynamic \
-  --with-ipv6 \
   --with-mail \
   --with-mail_ssl_module \
   --with-md5-asm \
