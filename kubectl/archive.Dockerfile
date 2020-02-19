@@ -1,6 +1,6 @@
 FROM alpine:edge
 ARG RELEASE_URL=https://storage.googleapis.com/kubernetes-release/release
-ARG FIX_VERSION=v1.16.0
+ARG FIX_VERSION=v1.14.4
 ARG KUBECTL_PATH=/usr/local/bin/kubectl
 WORKDIR /root
 RUN apk add --no-cache ca-certificates curl gettext
