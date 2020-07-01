@@ -1,0 +1,19 @@
+#!/bin/sh
+TEMPLATE_PATH=./.deployment/${TEMPLATE_PATH}
+GENERATED_PATH=${TEMPLATE_PATH}/generated
+
+if [ ! -d ${TEMPLATE_PATH} ]; then
+  echo "\`${TEMPLATE_PATH}\` directory not found!"
+  exit 1
+fi
+
+mkdir -p ${GENERATED_PATH}
+rm -rf ${GENERATED_PATH}/*
+
+for file in ${TEMPLATE_PATH}/*; do
+  if [ -f ${file} ]; then
+    GENERATED_FILE=${GENERATED_PATH}/$(basename $file)
+    echo "Generated file: ${GENERATED_FILE}"
+    envsubst <$file >${GENERATED_FILE}
+  fi
+done
