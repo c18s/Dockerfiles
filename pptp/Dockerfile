@@ -8,7 +8,7 @@ RUN apk add --no-cache \
   util-linux \
   supervisor \
   bind-tools \
-  py2-pip \
+  py-pip \
   && pip install envtpl
 
 FROM baseImage
