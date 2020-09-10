@@ -6,9 +6,15 @@ mkdir -p ${KUBE_CONFIG_DIR}
 
 if [[ ! -z "${DO_TOKEN}" && ! -z "${CLUSTER_ID}" ]]; then
   echo 'Config with `DO_TOKEN` and `CLUSTER_ID`'
-  curl -fsSL --request GET \
-    --url "https://api.digitalocean.com/v2/kubernetes/clusters/${CLUSTER_ID}/kubeconfig?expiry_seconds=300" \
-    --header "authorization: Bearer ${DO_TOKEN}" >${KUBE_CONFIG_FILE}
+  for i in {1..3}; do
+    echo "Getting config[$i]..."
+    curl -fsSL --request GET \
+      --url "https://api.digitalocean.com/v2/kubernetes/clusters/${CLUSTER_ID}/kubeconfig?expiry_seconds=300" \
+      --header "authorization: Bearer ${DO_TOKEN}" >${KUBE_CONFIG_FILE}
+    kubectl version --short=true
+    [ $? -eq 0 ] && break
+    sleep 3
+  done
 elif [ ! -z "${BASE64_KUBE_CONFIG}" ]; then
   echo 'Config with `BASE64_KUBE_CONFIG`'
   echo ${BASE64_KUBE_CONFIG} | base64 -d >${KUBE_CONFIG_FILE}
