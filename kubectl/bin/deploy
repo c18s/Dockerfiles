@@ -1,6 +1,6 @@
 #!/bin/sh
-GENERATED_PATH=./.deployment/generated
 TEMPLATE_PATH=${TEMPLATE_PATH:-./.deployment/templates}
+GENERATED_PATH=${TEMPLATE_PATH}/generated
 
 if [ ! -d ${TEMPLATE_PATH} ]; then
   echo "\`${TEMPLATE_PATH}\` directory not found!"

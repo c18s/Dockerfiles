@@ -1,5 +1,5 @@
 #!/bin/sh
-TEMPLATE_PATH=./.deployment/${TEMPLATE_PATH}
+TEMPLATE_PATH=${TEMPLATE_PATH:-./.deployment/templates}
 GENERATED_PATH=${TEMPLATE_PATH}/generated
 
 if [ ! -d ${TEMPLATE_PATH} ]; then
