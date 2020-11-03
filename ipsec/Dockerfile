@@ -11,7 +11,7 @@ RUN apk add --no-cache \
   lighttpd \
   supervisor \
   bind-tools \
-  py2-pip \
+  py-pip \
   && pip install envtpl
 
 FROM baseImage

@@ -14,6 +14,9 @@ shell:
 		-p 4500:4500/udp \
 		-p 1701:1701/udp \
 		-p 40080:40080 \
+		-e PSK=1234 \
+		-e USERNAME=test \
+		-e PASSWORD=1234 \
 		-v /lib/modules:/lib/modules \
 		-v $(CURDIR)/certs:/etc/ipsec.d/config/certs \
 		$(NS)/$(REPO) /bin/sh
