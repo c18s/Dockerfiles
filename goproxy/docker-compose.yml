@@ -2,5 +2,5 @@ dante:
   image: c18s/goproxy
   ports:
     - "1080:1080"
-  command: ["proxy", "socks", "-t", "tcp", "-p", "0.0.0.0:1080"]
+  command: ["proxy", "socks", "-l", "0",  "-t", "tcp", "-p", "0.0.0.0:1080"]
   restart: always
