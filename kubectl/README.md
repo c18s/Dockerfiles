@@ -1,6 +1,6 @@
 # kubectl
 
-[![Docker Build Status](https://img.shields.io/docker/build/c18s/kubectl.svg)][dockerhub_build]
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/c18s/kubectl.svg)][dockerhub_build]
 [![Docker Automated build](https://img.shields.io/docker/automated/c18s/kubectl.svg)][dockerhub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/kubectl.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/kubectl.svg)][dockerhub_tag]

@@ -14,12 +14,12 @@ Docker can build images automatically by reading the instructions from a Dockerf
 
 | Images                           | Status                                                                                     |
 | -------------------------------- | ------------------------------------------------------------------------------------------ |
-| [dante](dante)                   | [![Build Status](https://img.shields.io/docker/build/c18s/dante.svg)][dbs1]                |
-| [ipsec](ipsec)                   | [![Build Status](https://img.shields.io/docker/build/c18s/ipsec.svg)][dbs2]                |
-| [openresty](openresty)           | [![Build Status](https://img.shields.io/docker/build/c18s/openresty.svg)][dbs3]            |
-| [ci-docker](ci-docker)           | [![Build Status](https://img.shields.io/docker/build/c18s/ci-docker.svg)][dbs4]            |
-| [kubectl](kubectl)               | [![Build Status](https://img.shields.io/docker/build/c18s/kubectl.svg)][dbs5]              |
-| [goproxy](goproxy)               | [![Build Status](https://img.shields.io/docker/build/c18s/goproxy.svg)][dbs6]              |
+| [dante](dante)                   | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/dante.svg)][dbs1]                |
+| [ipsec](ipsec)                   | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/ipsec.svg)][dbs2]                |
+| [openresty](openresty)           | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/openresty.svg)][dbs3]            |
+| [ci-docker](ci-docker)           | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/ci-docker.svg)][dbs4]            |
+| [kubectl](kubectl)               | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/kubectl.svg)][dbs5]              |
+| [goproxy](goproxy)               | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/goproxy.svg)][dbs6]              |
 | [radius-server](radius-server)   | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/radius-server.svg)][dbs7]  |
 | [pptp](pptp)                     | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/pptp.svg)][dbs8]           |
 | [defaultbackend](defaultbackend) | [![Build Status](https://img.shields.io/docker/cloud/build/c18s/defaultbackend.svg)][dbs9] |

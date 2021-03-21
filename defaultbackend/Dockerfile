@@ -1,8 +1,9 @@
-FROM golang:alpine as builder
-WORKDIR /app
-RUN apk add -u git
-COPY . /app/
-RUN go get -v -d
+FROM golang:1.16-alpine AS builder
+WORKDIR /build
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o /srv/start
 
 FROM alpine:edge

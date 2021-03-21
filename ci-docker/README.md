@@ -1,6 +1,6 @@
 # Continuous Integration Tools
 
-[![Docker Build Status](https://img.shields.io/docker/build/c18s/ci-docker.svg)][dockerhub_build]
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/c18s/ci-docker.svg)][dockerhub_build]
 [![Docker Automated build](https://img.shields.io/docker/automated/c18s/ci-docker.svg)][dockerhub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/ci-docker.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/ci-docker.svg)][dockerhub_tag]
