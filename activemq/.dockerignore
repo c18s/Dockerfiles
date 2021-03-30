@@ -1,0 +1,5 @@
+*.md
+*.png
+.git*
+Makefile
+Dockerfile
