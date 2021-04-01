@@ -8,5 +8,4 @@ ACTIVEMQ_PASSWORD=${ACTIVEMQ_PASSWORD:-admin}
 
 echo "${ACTIVEMQ_USER}: ${ACTIVEMQ_PASSWORD}, admin" >$JETTY_REALM_FILE
 
-rm -rf $ACTIVEMQ_HOME/data/kahadb/lock
 exec $ACTIVEMQ_HOME/bin/activemq console
