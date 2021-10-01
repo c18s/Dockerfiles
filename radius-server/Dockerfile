@@ -1,10 +1,10 @@
 FROM subfuzion/envtpl as envtpl
-FROM alpine:edge as baseImage
+FROM alpine:edge as base-image
 ENV TZ=Asia/Bangkok
 RUN apk add --no-cache tzdata freeradius freeradius-radclient freeradius-eap
 COPY --from=envtpl /bin/envtpl /usr/local/bin/envtpl
 
-FROM baseImage
+FROM base-image
 ENV DEBUG=0
 ENV WORKDIR /etc/raddb
 WORKDIR ${WORKDIR}

@@ -1,4 +1,4 @@
-FROM alpine:edge AS baseImage
+FROM alpine:edge AS base-image
 ENV TZ=Asia/Bangkok
 RUN apk add --no-cache \
   tzdata \
@@ -11,7 +11,7 @@ RUN apk add --no-cache \
   py-pip \
   && pip install envtpl
 
-FROM baseImage
+FROM base-image
 ENV WORKDIR /etc/ppp
 WORKDIR ${WORKDIR}
 COPY bin/. /usr/local/bin/

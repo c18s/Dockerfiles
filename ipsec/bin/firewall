@@ -3,13 +3,13 @@ if [ "$DISABLE_FIREWALL" = "1" ]; then
   echo "Firewall is disabled"
   exit 0
 fi
+
 ## --- environment config ---
-INET=$(ip -4 route get 1 | awk '{print $5;exit}')
-[ -z "${INET}" ] && INET=${INET:-eth0}
+IP_ROUTE=$(ip -4 route get 1 | grep -Eo '\S+\s+src\s+([0-9]+.){3}[0-9]+')
+INET=$(echo $IP_ROUTE | awk '{print $1}')
+STATIC_IP=$(echo $IP_ROUTE | awk '{print $3}')
 IKE_NETWORK=${IKE_NETWORK:-10.255.1.0/24}
 L2TP_NETWORK=${L2TP_NETWORK:-10.255.2.0/24}
-STATIC_IP=$(ip -4 route get 1 | awk '{print $NF;exit}')
-[ -z "${STATIC_IP}" ] && STATIC_IP=$(ifconfig ${INET} | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
 
 firewall() {
   unset N
