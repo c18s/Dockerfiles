@@ -1,5 +1,5 @@
 NS = c18s
-REPO = openresty
+REPO = openresty:1.19
 
 build:
 	docker build -t $(NS)/$(REPO) .

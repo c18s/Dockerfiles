@@ -18,6 +18,7 @@
 - luarocks
 - libsregex
 - replace-filter-nginx-module
+- nginx_substitutions_filter
 
 ## Usage
 
@@ -33,8 +34,8 @@ docker-compose.yml
 openresty:
   image: c18s/openresty
   ports:
-    - '80:80'
-    - '443:443'
+    - "80:80"
+    - "443:443"
   restart: always
 ```
 
