@@ -1,7 +1,7 @@
-FROM bellsoft/liberica-openjdk-alpine:13
+FROM bellsoft/liberica-openjdk-alpine:18
 ENV TZ=Asia/Bangkok
 
-ENV ACTIVEMQ_VERSION 5.17.1
+ENV ACTIVEMQ_VERSION 5.17.0
 ENV ACTIVEMQ apache-activemq-$ACTIVEMQ_VERSION
 ENV ACTIVEMQ_HOME /opt/activemq
 
