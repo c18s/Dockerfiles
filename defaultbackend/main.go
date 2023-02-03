@@ -1,9 +1,9 @@
 package main
 
 import (
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo/v4"
 )
@@ -13,7 +13,7 @@ func customHTTPErrorHandler(err error, c echo.Context) {
 }
 
 func main() {
-	content, err := ioutil.ReadFile("static/index.html")
+	content, err := os.ReadFile("static/index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
