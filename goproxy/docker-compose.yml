@@ -1,4 +1,4 @@
-dante:
+goproxy:
   image: c18s/goproxy
   ports:
     - "1080:1080"
