@@ -1,6 +1,7 @@
-openresty:
-  image: c18s/openresty
-  ports:
-    - '80:80'
-    - '443:443'
-  restart: always
+services:
+  openresty:
+    image: c18s/openresty:1.27
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
