@@ -1,7 +1,5 @@
 # OpenResty® is a dynamic web platform based on NGINX and LuaJIT
 
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/c18s/openresty.svg)][dockerhub_build]
-[![Docker Automated build](https://img.shields.io/docker/cloud/automated/c18s/openresty.svg)][dockerhub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/c18s/openresty.svg)][dockerhub]
 [![Docker ImageSize](https://images.microbadger.com/badges/image/c18s/openresty.svg)][dockerhub_tag]
 
@@ -36,5 +34,4 @@ docker run -d -p 80:80 -p 443:443 --name openresty c18s/openresty
 [1]: https://openresty.org/
 [dockerhub]: https://hub.docker.com/r/c18s/openresty/
 [dockerhub_tag]: https://hub.docker.com/r/c18s/openresty/tags/
-[dockerhub_build]: https://hub.docker.com/r/c18s/openresty/builds/
 [github]: https://github.com/c18s/Dockerfiles/tree/master/openresty/
