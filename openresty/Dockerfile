@@ -35,7 +35,7 @@ ARG RESTY_PCRE_BUILD_OPTIONS="--enable-jit --enable-pcre2grep-jit \
     --enable-percent-zt --disable-rebuild-chartables --enable-shared \
     --disable-static --disable-silent-rules --enable-unicode --disable-valgrind \
     "
-ARG RESTY_J="1"
+ARG RESTY_J="8"
 ARG RESTY_CONFIG_OPTIONS="\
     --with-compat \
     --without-http_rds_json_module \
